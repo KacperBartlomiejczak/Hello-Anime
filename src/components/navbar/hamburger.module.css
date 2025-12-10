@@ -1,0 +1,32 @@
+.hamburger {
+  width: 32px;
+  height: 32px;
+  display: flex;
+  gap: 6px;
+  flex-direction: column;
+  align-items: end;
+  justify-content: center;
+  padding: 0.2em;
+  cursor: pointer;
+}
+
+.hamburgerLine {
+  height: 2px;
+  background-color: #fff;
+  transition: width 0.3s, color 0.3s ease-in 1s;
+}
+
+.hamburgerLine:first-child {
+  width: 100%;
+}
+.hamburgerLine:nth-child(2) {
+  width: 50%;
+}
+.hamburgerLine:nth-child(3) {
+  width: 25%;
+}
+
+.hamburger:focus > .hamburgerLine {
+  background: var(--color-brand);
+  width: 100%;
+}
