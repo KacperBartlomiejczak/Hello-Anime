@@ -5,11 +5,9 @@ import NavLink from "./navLink";
 import NavHamburger from "./navHamburger";
 import Link from "next/link";
 import { useState } from "react";
-import { X } from "lucide-react";
 
 import NavLinks from "./NavLinks";
-import { AnimatePresence, motion } from "framer-motion";
-import { cn } from "@/lib/utils";
+
 import NavSearchAnime from "./navSearchAnime";
 
 export default function Navbar() {
@@ -20,24 +18,20 @@ export default function Navbar() {
   console.log(isFocused);
   return (
     <header className="w-screen min-h-[5vh] bg-background flex items-center justify-center p-2 text-white relative">
-      <nav className="container bg-secondary-background max-w-[90%] p-4 rounded-full flex items-center justify-between sticky    z-50">
+      <nav className="container bg-secondary-background max-w-[90%] p-4 rounded-full flex items-center justify-between sticky  z-50">
         <Link
           href="/"
-          className="font-poppins font-bold p-2 text-base cursor-pointer z-50"
+          className="font-poppins font-bold p-2 text-base cursor-pointer z-50 md:text-lg hover:text-brand transition-colors"
         >
           <span className="text-brand">Hello</span> Anime!
         </Link>
-        <NavLinks
-          isActive={isActive}
-          onClick={() => setIsActive(false)}
-          href={["/", "/", "/", "/"]}
-        />
+        <NavLinks isActive={isActive} onClick={() => setIsActive(false)} />
         <div className="flex flex-row gap-3 items-center z-50">
           <NavLink isButton onClick={() => setIsSearch(true)}>
-            <Search size={24} />
+            <Search size={28} />
           </NavLink>
           <NavLink href="/login">
-            <User size={24} />
+            <User size={28} />
           </NavLink>
           <NavHamburger
             isActive={isActive}

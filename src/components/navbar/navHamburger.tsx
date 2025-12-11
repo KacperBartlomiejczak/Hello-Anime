@@ -12,7 +12,11 @@ export default function NavHamburger({
   ...props
 }: NavHamburgerProps) {
   return (
-    <button className={cn(classes.hamburger, className)} {...props} aria-label="Toggle navigation menu">
+    <button
+      className={cn(classes.hamburger, className, "flex lg:hidden")}
+      {...props}
+      aria-label="Toggle navigation menu"
+    >
       <span className={classes.hamburgerLine}></span>
       <span className={classes.hamburgerLine}></span>
       <span className={classes.hamburgerLine}></span>
