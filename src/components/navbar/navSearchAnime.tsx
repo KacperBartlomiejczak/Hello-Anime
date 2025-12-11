@@ -27,7 +27,7 @@ export default function NavSearchAnime({
             initial={{ opacity: isSearch ? 1 : 0 }}
             animate={{ opacity: isSearch ? 1 : 0 }}
             exit={{ opacity: isSearch ? 1 : 0 }}
-            className="absolute inset-0 bg-secondary-background blur-sm pointer-events-auto z-50"
+            className="absolute inset-0 bg-secondary-background  pointer-events-auto z-50"
           ></motion.div>
           <motion.div
             initial={{ scale: 0, rotate: -180 }}
