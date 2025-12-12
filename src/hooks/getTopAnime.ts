@@ -1,9 +1,9 @@
 export async function getTopAnime(isAiring: boolean) {
-  const url = "https://api.jikan.moe/v4/";
+  const url = "https://api.jikan.moe/v4";
 
   try {
     const response = await fetch(
-      `${url}top/anime?type=tv&${isAiring && "filter=airing"}`
+      `${url}/top/anime?type=tv&${isAiring && "filter=airing"}`
     );
 
     if (!response.ok) {
@@ -13,5 +13,6 @@ export async function getTopAnime(isAiring: boolean) {
     return data;
   } catch (error) {
     console.error("Error just ocurred ", error);
+    return null
   }
 }

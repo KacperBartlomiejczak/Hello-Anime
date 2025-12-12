@@ -12,6 +12,7 @@ export interface Anime {
   episodes: number;
   year: number;
   genres: Genre[];
+  type: string;
 }
 
 interface Genre {

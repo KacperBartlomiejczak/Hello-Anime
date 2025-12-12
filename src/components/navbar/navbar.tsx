@@ -9,13 +9,14 @@ import NavLinks from "./NavLinks";
 
 import NavSearchAnime from "./navSearchAnime";
 import { cn } from "@/lib/utils";
+import { useBlockScroll } from "@/hooks/useBlockScroll";
 
 export default function Navbar() {
   const [isActive, setIsActive] = useState(false);
-  const [isFocused, setIsFocused] = useState(false);
+  
   const [isSearch, setIsSearch] = useState(false);
 
-  console.log(isFocused);
+  useBlockScroll(isActive)
   return (
     <>
       <nav
