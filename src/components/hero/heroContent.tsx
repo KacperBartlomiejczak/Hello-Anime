@@ -8,7 +8,7 @@ interface HeroContentProps {
 export default function HeroContent({ anime }: HeroContentProps) {
   return (
     <div className="relative container mx-auto z-10 flex flex-col justify-center h-full px-4 md:px-12">
-      <div className="flex flex-col items-start gap-4 md:gap-6 max-w-lg md:max-w-2xl lg:w-[60%]">
+      <div className="flex flex-col items-start gap-4 md:gap-6 max-w-lg md:max-w-3xl lg:w-[60%]">
         <h2 className="font-poppins font-bold text-4xl md:text-6xl text-white leading-tight">
           {anime.title}
         </h2>

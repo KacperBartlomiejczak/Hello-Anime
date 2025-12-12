@@ -1,8 +1,10 @@
-export async function getTopAnime() {
+export async function getTopAnime(isAiring: boolean) {
   const url = "https://api.jikan.moe/v4/";
 
   try {
-    const response = await fetch(`${url}top/anime?type=tv&filter=airing`);
+    const response = await fetch(
+      `${url}top/anime?type=tv&${isAiring && "filter=airing"}`
+    );
 
     if (!response.ok) {
       throw new Error("Couldn't connected with api");

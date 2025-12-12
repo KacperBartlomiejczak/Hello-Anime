@@ -1,14 +1,12 @@
-"use client"; // Jeśli będziesz dodawać obsługę kliknięć
+"use client";
 
 import { Anime } from "@/types/anime";
-import Image from "next/image";
-import { cn } from "@/lib/utils";
-import { Star, ChevronLeft, ChevronRight, Play } from "lucide-react"; // Dodałem ikony
+
 import { useEffect, useState } from "react";
-import HeroContent from "./heroContent";
-import { AnimatePresence, motion } from "framer-motion";
+
 import HeroDots from "./heroDots";
 import HeroChevrons from "./heroChevrons";
+import HeroImage from "./heroImage";
 
 interface HeroProps {
   animes: Anime[];
@@ -45,28 +43,7 @@ export default function Hero({ animes }: HeroProps) {
   };
   return (
     <section className="relative w-screen h-screen md:h-screen">
-      <AnimatePresence mode="wait">
-        <motion.div
-          key={anime.mal_id}
-          initial={{ opacity: 0 }}
-          animate={{ opacity: 1 }}
-          exit={{ opacity: 0 }}
-          transition={{ duration: 0.5 }}
-          className="absolute inset-0 w-full h-full"
-        >
-          <Image
-            src={anime.images.webp.large_image_url}
-            alt={anime.title}
-            className="object-cover object-center "
-            fill
-            priority
-            sizes="100vw"
-          />
-
-          <div className="absolute inset-0 bg-background/90 lg:bg-linear-to-r lg:from-[#0f172a] lg:via-[#0f172a]/60 lg:to-transparent z-0"></div>
-          <HeroContent anime={anime} />
-        </motion.div>
-      </AnimatePresence>
+      <HeroImage anime={anime} />
 
       <HeroChevrons
         onLeftSlide={slideLeftAnimeHandler}
