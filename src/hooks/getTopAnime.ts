@@ -7,12 +7,12 @@ export async function getTopAnime(isAiring: boolean) {
     );
 
     if (!response.ok) {
-      throw new Error("Couldn't connected with api");
+      throw new Error(`Couldn't connected with api ${response.status}`);
     }
     const data = await response.json();
     return data;
   } catch (error) {
     console.error("Error just ocurred ", error);
-    return null
+    return null;
   }
 }

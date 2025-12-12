@@ -21,7 +21,7 @@ export default function Navbar() {
     <>
       <nav
         className={cn(
-          "fixed bg-secondary-background w-[90%] min-h-[5vh] flex items-center justify-between top-10 py-4 px-2 rounded-full  z-50 max-w-7xl mx-auto"
+          "fixed bg-secondary-background w-[90%] min-h-[5vh] flex items-center justify-between top-5 py-4 px-2 rounded-full  z-50 max-w-7xl mx-auto"
         )}
       >
         <div className="w-full flex flex-row items-center justify-between px-2">
