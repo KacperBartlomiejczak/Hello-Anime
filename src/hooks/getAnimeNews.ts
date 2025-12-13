@@ -64,34 +64,33 @@ async function getAnimeNews(id: string) {
 
 export async function getMixedAnimeNews() {
   try {
-    // 1. Pobieramy top anime
+    
     const topAnime = await getTopAnime(true);
 
     if (!topAnime || !topAnime.data) return [];
 
-    const top3 = topAnime.data.slice(0, 3);
+    const top6 = topAnime.data.slice(0, 6);
     const allNews = [];
 
-    // 2. Zmieniamy strategię: Pobieramy newsy PO KOLEI, a nie na raz
-    for (const anime of top3) {
-      // Czekamy 400ms przed każdym zapytaniem, żeby nie zabić API
-      await delay(350);
+   
+    for (const anime of top6) {
+      
 
       const news = await getAnimeNews(anime.mal_id);
 
-      // Sprawdzamy czy przyszły dane (pamiętasz nasz fix z obiektem data?)
+     
       if (news && news.data) {
         allNews.push(...news.data);
       }
     }
 
-    // 3. Sortowanie (już bezpieczne)
+    
     const sortedNews = allNews.sort(
       (a: any, b: any) =>
         new Date(b.date).getTime() - new Date(a.date).getTime()
     );
 
-    return sortedNews.slice(0, 5);
+    return sortedNews.slice(0, 6);
   } catch (err) {
     console.error("Error with aggragate news", err);
     return [];

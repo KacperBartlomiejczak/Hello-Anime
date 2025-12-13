@@ -8,4 +8,5 @@ export interface News {
     };
   };
   date: string;
+  url: string;
 }

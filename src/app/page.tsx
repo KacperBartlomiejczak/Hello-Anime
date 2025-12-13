@@ -1,7 +1,9 @@
 import Hero from "@/components/hero/hero";
-import Navbar from "@/components/navbar/navbar";
+
 import { getTopAnime } from "@/hooks/getTopAnime";
 import CardSlider from "@/components/cardSlider/cardSlider";
+
+
 import AnimeNews from "@/components/animeNews/animeNews";
 
 export default async function Home() {

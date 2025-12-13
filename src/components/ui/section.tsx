@@ -1,15 +1,23 @@
 import { cn } from "@/lib/utils";
+import { forwardRef } from "react";
 interface SectionProps {
-  classNames?: string;
+  className?: string;
   children?: React.ReactNode;
 }
 
-export default function Section({ classNames, children }: SectionProps) {
+const Section = forwardRef<HTMLElement, SectionProps>(function Section(
+  { className, children },
+  ref
+) {
   return (
-    <section className={cn("bg-background p-4 w-full", classNames)}>
-      <div className="relative container gap-4 mx-auto flex flex-col  p-4 md:text-2xl">
+    <section className={cn("bg-background p-4 w-full", className)} ref={ref}>
+      <div className="relative container gap-4 mx-auto flex flex-col p-4">
         {children}
       </div>
     </section>
   );
-}
+});
+
+Section.displayName = "Section";
+
+export default Section;
