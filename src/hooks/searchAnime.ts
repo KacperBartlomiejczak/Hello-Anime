@@ -3,11 +3,13 @@ export async function searchAnime(query: string) {
   try {
     const params = new URLSearchParams({
       q: query,
-      limit: "3",
+      limit: "6",
       sfw: "false",
     });
 
-    const response = await fetch(`${baseUrl}/anime?${params.toString()}`);
+    const response = await fetch(
+      `${baseUrl}/anime?${params.toString()}&type=tv`
+    );
 
     if (!response.ok) {
       throw new Error(`Couldn't connect with api ${response.status}`);

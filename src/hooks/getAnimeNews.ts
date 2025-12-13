@@ -1,11 +1,52 @@
 import { getTopAnime } from "./getTopAnime";
 import { Anime } from "@/types/anime";
 
+const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+
+const FAKE_NEWS_RESPONSE = {
+  data: [
+    {
+      mal_id: 1,
+      url: "https://myanimelist.net/news/1",
+      title: "To jest testowy news nr 1",
+      date: "2025-10-15T10:00:00+00:00", // Data w przyszłości, żeby był pierwszy
+      author_username: "Bartek",
+      images: {
+        jpg: {
+          image_url:
+            "https://cdn.myanimelist.net/s/common/uploaded_files/1765556312-11fff2d4eec923893ce8dd25284bea0d.jpeg",
+        },
+      },
+      forum_url: "#",
+    },
+    {
+      mal_id: 2,
+      url: "https://myanimelist.net/news/2",
+      title: "To jest testowy news nr 2 (starszy)",
+      date: "2023-10-10T12:00:00+00:00",
+      author_username: "Mentor",
+      images: {
+        jpg: {
+          image_url:
+            "https://cdn.myanimelist.net/s/common/uploaded_files/1765556312-11fff2d4eec923893ce8dd25284bea0d.jpeg",
+        },
+      },
+      forum_url: "#",
+    },
+  ],
+};
+
 async function getAnimeNews(id: string) {
   const baseUrl = "https://api.jikan.moe/v4/anime";
 
   try {
-    const response = await fetch(`${baseUrl}/${id}/news`);
+    const response = await fetch(`${baseUrl}/${id}/news`, {
+      next: { revalidate: 3600 },
+    });
+    if (response.status === 429) {
+      console.warn("⚠️ Limit API osiągnięty! Używam danych testowych.");
+      return FAKE_NEWS_RESPONSE;
+    }
 
     if (!response.ok) {
       throw new Error(
@@ -17,26 +58,34 @@ async function getAnimeNews(id: string) {
     return data;
   } catch (err) {
     console.log("Couldnt get anime news", err);
-    return [];
+    return { data: [] };
   }
 }
 
 export async function getMixedAnimeNews() {
   try {
+    // 1. Pobieramy top anime
     const topAnime = await getTopAnime(true);
 
     if (!topAnime || !topAnime.data) return [];
 
     const top3 = topAnime.data.slice(0, 3);
+    const allNews = [];
 
-    const newsPromises = top3.map((anime: Anime) => getAnimeNews(anime.mal_id));
-    const newsResponses = await Promise.all(newsPromises);
+    // 2. Zmieniamy strategię: Pobieramy newsy PO KOLEI, a nie na raz
+    for (const anime of top3) {
+      // Czekamy 400ms przed każdym zapytaniem, żeby nie zabić API
+      await delay(350);
 
-    const allNews = newsResponses
-      .filter((response) => response !== null)
-      .map((response) => response.data)
-      .flat();
+      const news = await getAnimeNews(anime.mal_id);
 
+      // Sprawdzamy czy przyszły dane (pamiętasz nasz fix z obiektem data?)
+      if (news && news.data) {
+        allNews.push(...news.data);
+      }
+    }
+
+    // 3. Sortowanie (już bezpieczne)
     const sortedNews = allNews.sort(
       (a: any, b: any) =>
         new Date(b.date).getTime() - new Date(a.date).getTime()

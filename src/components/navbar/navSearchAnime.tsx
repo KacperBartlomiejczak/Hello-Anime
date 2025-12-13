@@ -8,6 +8,7 @@ import { useDebounce } from "@/hooks/useDebounce";
 import { Anime } from "@/types/anime";
 import Image from "next/image";
 import { useBlockScroll } from "@/hooks/useBlockScroll";
+import Link from "next/link";
 
 interface NavSearchAnimeProps {
   isSearch: boolean;
@@ -96,11 +97,12 @@ export default function NavSearchAnime({
                 </div>
               )}
               {!isLoading && results.length > 0 && (
-                <div className="flex flex-col gap-4 p-2 self-start">
+                <div className="grid grid-cols-2 h-2/3 gap-4 p-2">
                   {results.map((anime) => (
-                    <div
+                    <Link
                       key={anime.mal_id}
-                      className="flex-gap-4 p-2 hover:bg-white/10 vursor-pointer transition-all"
+                      href={`/anime/${anime.mal_id}`}
+                      className="flex gap-4 p-2 hover:bg-background/30 cursor-pointer transition-all"
                     >
                       <div className="relative w-16 h-24 shrink-0">
                         <Image
@@ -111,16 +113,18 @@ export default function NavSearchAnime({
                         ></Image>
                       </div>
                       <div>
-                        <h4 className="text-white font-bold">{anime.title}</h4>
+                        <h4 className="text-white font-bold w-1/2">
+                          {anime.title}
+                        </h4>
                         <p className="text-gray-400 text-sm">
                           {anime.year} • {anime.type}
                         </p>
                       </div>
-                    </div>
+                    </Link>
                   ))}
                 </div>
               )}
-              {!isLoading && query.length > 2 && (
+              {!isLoading && query.length > 2 && results.length === 0 && (
                 <div className="p-4">
                   <p>There is no anime in that type</p>
                 </div>

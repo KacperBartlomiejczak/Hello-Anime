@@ -3,7 +3,10 @@ export async function getTopAnime(isAiring: boolean) {
 
   try {
     const response = await fetch(
-      `${url}/top/anime?type=tv&${isAiring && "filter=airing"}`
+      `${url}/top/anime?type=tv&${isAiring && "filter=airing"}`,
+      {
+        next: { revalidate: 3600 },
+      }
     );
 
     if (!response.ok) {
