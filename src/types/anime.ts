@@ -13,6 +13,16 @@ export interface Anime {
   year: number;
   genres: Genre[];
   type: string;
+  status: string;
+  url: string;
+  season: string;
+  title_english: string;
+  rank: number;
+  popularity: number;
+  duration: string;
+  source: string;
+  rating: number;
+  studios: Studios[];
 }
 
 interface Genre {
@@ -20,4 +30,8 @@ interface Genre {
   type: string;
   name: string;
   url: string;
+}
+
+interface Studios {
+  name: string;
 }

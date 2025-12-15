@@ -19,8 +19,6 @@ export default function NewsList() {
     });
   }, []);
 
-  console.log(news);
-
   if (loading)
     return <div className="p-10 text-center text-gray-400">Loading news</div>;
 
