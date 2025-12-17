@@ -23,23 +23,24 @@ export default function CardContent({
       <p className="line-clamp-3 text-xs text-gray-400 font-light leading-relaxed md:text-sm lg:text-base">
         {synopsis}
       </p>
+      {genres && (
+        <div className="mt-auto flex flex-wrap gap-2 pt-2 mb-2">
+          {genres.slice(0, 3).map((genre) => (
+            <span
+              key={genre.mal_id}
+              className="text-[10px] px-2 py-1 bg-secondary text-white/80 rounded-md border border-white/5 whitespace-nowrap"
+            >
+              {genre.name}
+            </span>
+          ))}
 
-      <div className="mt-auto flex flex-wrap gap-2 pt-2 mb-2">
-        {genres.slice(0, 3).map((genre) => (
-          <span
-            key={genre.mal_id}
-            className="text-[10px] px-2 py-1 bg-secondary text-white/80 rounded-md border border-white/5 whitespace-nowrap"
-          >
-            {genre.name}
-          </span>
-        ))}
-
-        {genres.length > 3 && (
-          <span className="text-[10px] px-2 py-1 text-gray-500">
-            +{genres.length - 3}
-          </span>
-        )}
-      </div>
+          {genres.length > 3 && (
+            <span className="text-[10px] px-2 py-1 text-gray-500">
+              +{genres.length - 3}
+            </span>
+          )}
+        </div>
+      )}
     </div>
   );
 }

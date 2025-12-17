@@ -46,6 +46,11 @@ export default function NavSearchAnime({
 
   useBlockScroll(isSearch);
 
+  const onCloseNav = () => {
+    onClick();
+    setQuery("");
+  };
+
   return (
     <AnimatePresence mode="wait">
       {isSearch && (
@@ -103,6 +108,7 @@ export default function NavSearchAnime({
                       key={anime.mal_id}
                       href={`/anime/${anime.mal_id}`}
                       className="flex gap-4 p-2 hover:bg-background/30 cursor-pointer transition-all"
+                      onClick={onCloseNav}
                     >
                       <div className="relative w-16 h-24 shrink-0">
                         <Image
@@ -110,6 +116,7 @@ export default function NavSearchAnime({
                           alt={anime.title}
                           fill
                           className="object-cover object-center rounded-xl"
+                          sizes="100%"
                         ></Image>
                       </div>
                       <div>

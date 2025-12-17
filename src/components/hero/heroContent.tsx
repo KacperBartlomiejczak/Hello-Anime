@@ -1,5 +1,6 @@
 import { Anime } from "@/types/anime";
 import { Star, Play } from "lucide-react";
+import Link from "next/link";
 
 interface HeroContentProps {
   anime: Anime;
@@ -19,10 +20,13 @@ export default function HeroContent({ anime }: HeroContentProps) {
         <p className="line-clamp-3 md:line-clamp-4 text-gray-300 text-sm md:text-base leading-relaxed">
           {anime.synopsis}
         </p>
-        <button className="mt-4 flex items-center gap-2 bg-brand hover:bg-brand/70 transition-colors text-white px-8 py-3 rounded-xl font-bold text-lg shadow-lg shadow-brand/20 cursor-pointer">
+        <Link
+          className="mt-4 flex items-center gap-2 bg-brand hover:bg-brand/70 transition-colors text-white px-8 py-3 rounded-xl font-bold text-lg shadow-lg shadow-brand/20 cursor-pointer"
+          href={`/anime/${anime.mal_id}`}
+        >
           <Play />
           Watch now
-        </button>
+        </Link>
       </div>
     </div>
   );

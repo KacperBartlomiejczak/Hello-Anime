@@ -13,10 +13,10 @@ import { useBlockScroll } from "@/hooks/useBlockScroll";
 
 export default function Navbar() {
   const [isActive, setIsActive] = useState(false);
-  
+
   const [isSearch, setIsSearch] = useState(false);
 
-  useBlockScroll(isActive)
+  useBlockScroll(isActive);
   return (
     <>
       <nav
@@ -28,6 +28,7 @@ export default function Navbar() {
           <Link
             href="/"
             className="font-poppins font-bold p-2 text-base cursor-pointer z-50 md:text-lg hover:text-brand transition-colors xl:text-xl"
+            onClick={() => setIsActive(false)}
           >
             <span className="text-brand">Hello</span> Anime!
           </Link>

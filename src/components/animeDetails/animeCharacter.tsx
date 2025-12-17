@@ -5,14 +5,13 @@ interface CharactersGridProps {
 }
 
 export default function CharactersGrid({ characters }: CharactersGridProps) {
-  
   if (!characters || characters.length === 0) return null;
 
   return (
     <div className="container mx-auto px-4 py-8">
       <h3 className="text-xl font-bold mb-4 font-poppins flex items-center gap-2">
         <span className="w-1 h-6 bg-brand rounded-full block"></span>
-        Postacie
+        Characters
       </h3>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-6 gap-3 md:gap-4">
@@ -50,7 +49,6 @@ export default function CharactersGrid({ characters }: CharactersGridProps) {
               >
                 {item.character.name}
               </h4>
-              
             </div>
           </div>
         ))}

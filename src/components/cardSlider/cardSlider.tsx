@@ -3,7 +3,7 @@
 import { Anime } from "@/types/anime";
 import Title from "../ui/title";
 
-import Card from "./card";
+import Card from "../ui/card";
 
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";

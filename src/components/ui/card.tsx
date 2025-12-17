@@ -1,6 +1,6 @@
 import { Anime } from "@/types/anime";
 import Image from "next/image";
-import { Star, Clock } from "lucide-react";
+
 import Link from "next/link";
 import CardContent from "./cardContent";
 import CardImage from "./cardImage";

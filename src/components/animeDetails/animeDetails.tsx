@@ -1,7 +1,7 @@
 import Image from "next/image";
 import { Anime } from "@/types/anime";
 import AnimeDescription from "./animeDescription";
-import { Character } from "@/types/character";
+
 
 interface AnimeDetailsCardProps {
   anime: Anime;
@@ -11,7 +11,7 @@ export default function AnimeDetailsCard({ anime }: AnimeDetailsCardProps) {
   return (
     <div className="container mx-auto px-4 py-8 md:py-12">
       <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] lg:grid-cols-[350px_1fr] gap-8 lg:gap-12 items-start">
-        {/* --- LEWA KOLUMNA: Obrazek (Sticky na desktopie) --- */}
+        
         <div className="w-full md:sticky md:top-24 flex flex-col gap-4">
           <div className="relative aspect-2/3 w-full rounded-2xl overflow-hidden shadow-2xl shadow-brand/20">
             <Image
@@ -22,25 +22,25 @@ export default function AnimeDetailsCard({ anime }: AnimeDetailsCardProps) {
               sizes="(max-width: 768px) 100vw, 350px"
               priority
             />
-            {/* Status Badge na obrazku */}
+            
             <div className="absolute top-4 left-4 bg-black/70 backdrop-blur-md px-3 py-1 rounded-full border border-white/10 text-xs font-bold text-white uppercase tracking-wider">
               {anime.status}
             </div>
           </div>
 
-          {/* Dodatkowe przyciski pod obrazkiem (opcjonalne) */}
+          
           <a
             href={anime.url}
             target="_blank"
             className="w-full py-3 bg-brand text-white text-center font-bold rounded-xl hover:bg-brand/80 transition-all shadow-lg shadow-brand/20"
           >
-            Zobacz na MAL
+            See On MAL
           </a>
         </div>
 
-        {/* --- PRAWA KOLUMNA: Informacje --- */}
+       
         <div className="flex flex-col gap-6">
-          {/* 1. Nagłówek */}
+          
           <div>
             <div className="flex flex-wrap items-center gap-3 text-sm text-gray-400 mb-2">
               <span>{anime.year || "Unknown Year"}</span>
@@ -59,7 +59,7 @@ export default function AnimeDetailsCard({ anime }: AnimeDetailsCardProps) {
             )}
           </div>
 
-          {/* 2. Statystyki (Score grid) */}
+          
           <div className="grid grid-cols-3 gap-4 bg-white/5 border border-white/10 p-4 rounded-2xl">
             <StatBox label="Score" value={anime.score ?? "N/A"} icon="⭐" />
             <StatBox label="Rank" value={`#${anime.rank ?? "-"}`} icon="🏆" />
@@ -70,7 +70,7 @@ export default function AnimeDetailsCard({ anime }: AnimeDetailsCardProps) {
             />
           </div>
 
-          {/* 3. Gatunki (Tagi) */}
+          
           <div className="flex flex-wrap gap-2">
             {anime.genres.map((genre) => (
               <span
@@ -82,7 +82,7 @@ export default function AnimeDetailsCard({ anime }: AnimeDetailsCardProps) {
             ))}
           </div>
 
-          {/* 4. Opis (Tutaj wchodzi Twój komponent!) */}
+          
           <div className="bg-white/5 p-6 rounded-2xl border border-white/5">
             <h3 className="text-lg font-bold mb-3 border-l-4 border-brand pl-3">
               Synopsis
@@ -92,7 +92,7 @@ export default function AnimeDetailsCard({ anime }: AnimeDetailsCardProps) {
             />
           </div>
 
-          {/* 5. Siatka detali (Info Grid) */}
+          
           <div className="grid grid-cols-2 sm:grid-cols-4 gap-6 mt-4">
             <InfoItem label="Episodes" value={anime.episodes ?? "?"} />
             <InfoItem label="Duration" value={anime.duration} />
