@@ -19,7 +19,7 @@ export default function MainNews({ news }: MainNewsProps) {
         />
       </div>
       <div className="flex flex-row justify-between mt-2 w-full items-center">
-        <p className="text-gray-400 text-xs">
+        <p className="text-gray-400 text-xs" suppressHydrationWarning>
           {new Date(mainNews.date).toLocaleDateString()}
         </p>
         <p className="text-brand text-sm">{mainNews.author_username}</p>

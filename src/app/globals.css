@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+@keyframes shimmer {
+  0% {
+    background-position: -200% 0;
+  }
+  100% {
+    background-position: 200% 0;
+  }
+}
+
 @theme {
   --font-sans: var(--font-inter);
   --font-poppins: var(--font-poppins);
@@ -8,4 +17,6 @@
   --color-secondary: #f08a5d;
   --color-text: #eaeaea;
   --color-secondary-background: #232342;
+  
+  --animate-shimmer: shimmer 2s ease-in-out infinite;
 }

@@ -62,29 +62,23 @@ async function getAnimeNews(id: string) {
   }
 }
 
-export async function getMixedAnimeNews() {
+export async function getMixedAnimeNews(data: any) {
   try {
-    
-    const topAnime = await getTopAnime(true);
+    const topAnime = data;
 
     if (!topAnime || !topAnime.data) return [];
 
     const top6 = topAnime.data.slice(0, 6);
     const allNews = [];
 
-   
     for (const anime of top6) {
-      
-
       const news = await getAnimeNews(anime.mal_id);
 
-     
       if (news && news.data) {
         allNews.push(...news.data);
       }
     }
 
-    
     const sortedNews = allNews.sort(
       (a: any, b: any) =>
         new Date(b.date).getTime() - new Date(a.date).getTime()

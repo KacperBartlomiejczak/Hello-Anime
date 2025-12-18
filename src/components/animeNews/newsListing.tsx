@@ -6,8 +6,8 @@ interface NewsProps {
 }
 
 export default function NewsListing({ news }: NewsProps) {
-  return(
-    <div className="flex flex-col gap-5 mt-2">
+  return (
+    <div className="flex flex-col gap-5 mt-2 w-full lg:w-1/2">
       {news.slice(1, -1).map((n, index) => {
         return (
           <Link
@@ -19,7 +19,10 @@ export default function NewsListing({ news }: NewsProps) {
             <h4 className="font-poppins font-bold text-sm/loose">{n.title}</h4>
             <div className="flex flex-row w-full items-center justify-between">
               <p className="text-brand text-sm">{n.author_username}</p>
-              <p className="text-gray-400 text-xs py-1">
+              <p
+                className="text-gray-400 text-xs py-1"
+                suppressHydrationWarning
+              >
                 {new Date(n.date).toLocaleDateString()}
               </p>
             </div>
