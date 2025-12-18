@@ -1,9 +1,5 @@
-"use client";
-
-import { fetchNewsAction } from "@/app/actions";
 import { cn } from "@/lib/utils";
 import { News } from "@/types/news";
-import { useState, useEffect } from "react";
 
 import MainNews from "./mainNews";
 import NewsListing from "./newsListing";
