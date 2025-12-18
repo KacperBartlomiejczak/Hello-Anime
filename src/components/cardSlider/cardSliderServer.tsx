@@ -1,12 +1,9 @@
 import { getTopAnime } from "@/hooks/getTopAnime";
 import CardSlider from "./cardSlider";
+import { Anime } from "@/types/anime";
 
 export default async function CardSliderServer() {
-  const response = await getTopAnime(true);
-  
-  if (!response || !response.data) {
-    return <div>Failed to load anime</div>;
-  }
-  
-  return <CardSlider animes={response.data} />;
+  const upComing = await getTopAnime(true);
+
+  return <CardSlider animes={upComing.data} />;
 }

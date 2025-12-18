@@ -23,14 +23,17 @@ export default async function Page({ params }: PageProps) {
   const characters = await getAnimeCharacters(id);
 
   const recommendations = await getAnimeRecomendations(id);
-  console.log(recommendations);
 
   return (
     <div className="flex justify-start mx-auto items-center flex-col container min-h-screen pt-30 gap-2">
       <AnimeDetails anime={data.data} />
       <CharactersGrid characters={characters} />
 
-      <RecommendationsSection recommendations={recommendations} />
+      {recommendations.length > 0 ? (
+        <RecommendationsSection recommendations={recommendations} />
+      ) : (
+        <p className="p-4">We have no anime recommendations yet!</p>
+      )}
     </div>
   );
 }

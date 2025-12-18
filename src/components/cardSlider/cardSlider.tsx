@@ -19,7 +19,7 @@ interface CardSliderProps {
 export default function CardSlider({ animes }: CardSliderProps) {
   return (
     <Section>
-      <Title>Top Anime</Title>
+      <Title>Upcoming Anime</Title>
       <div className="w-full flex items-center justify-center p-2 gap-2">
         <Swiper
           modules={[FreeMode]}
