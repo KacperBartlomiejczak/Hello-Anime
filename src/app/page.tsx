@@ -11,13 +11,11 @@ import HeroSkeleton from "@/components/hero/heroSkeleton";
 export default async function Home() {
   const topData = await getTopAnime(false);
 
-  console.log(topData);
-
   return (
     <>
       <header className="w-screen  bg-background flex items-center justify-center text-white relative">
         <Suspense fallback={<HeroSkeleton />}>
-          <Hero animes={topData.data.slice(0, 5)} />
+          <Hero animes={topData?.data.slice(0, 5)} />
         </Suspense>
       </header>
       <Suspense fallback={<CardSliderSkeleton />}>
