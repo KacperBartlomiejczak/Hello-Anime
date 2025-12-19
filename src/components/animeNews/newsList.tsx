@@ -1,29 +1,15 @@
-"use client";
 
-import { fetchNewsAction } from "@/app/actions";
+
 import { cn } from "@/lib/utils";
 import { News } from "@/types/news";
-import { useState, useEffect } from "react";
 
 import MainNews from "./mainNews";
 import NewsListing from "./newsListing";
 
-export default function NewsList() {
-  const [news, setNews] = useState<News[]>([]);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    fetchNewsAction().then((data) => {
-      setNews(data);
-      setLoading(false);
-    });
-  }, []);
-
-  if (loading)
-    return <div className="p-10 text-center text-gray-400">Loading news</div>;
-
-  if (news.length === 0) return <div>There is no news</div>;
-
+interface NewsProps {
+  news: News[];
+}
+export default function NewsList({ news }: NewsProps) {
   return (
     <div
       className={cn(

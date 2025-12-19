@@ -7,9 +7,10 @@ interface MainNewsProps {
 
 export default function MainNews({ news }: MainNewsProps) {
   const mainNews = news;
+  console.log(mainNews);
   return (
-    <div className="group flex flex-col w-full h-120 gap-2 items-start justify-center lg:w-1/3 lg:h-130 lg:justify-start">
-      <div className="relative w-full h-2/3">
+    <div className="group flex flex-col w-full h-120 gap-2 items-start justify-center md:h-150 lg:w-1/3 lg:h-130 lg:justify-start">
+      <div className="relative w-full h-92 md:h-87">
         <Image
           src={mainNews.images.jpg.image_url}
           alt={mainNews.title}
@@ -19,7 +20,7 @@ export default function MainNews({ news }: MainNewsProps) {
         />
       </div>
       <div className="flex flex-row justify-between mt-2 w-full items-center">
-        <p className="text-gray-400 text-xs">
+        <p className="text-gray-400 text-xs" suppressHydrationWarning>
           {new Date(mainNews.date).toLocaleDateString()}
         </p>
         <p className="text-brand text-sm">{mainNews.author_username}</p>
