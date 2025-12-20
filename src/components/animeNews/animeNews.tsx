@@ -2,10 +2,10 @@ import Title from "../ui/title";
 import Section from "../ui/section";
 import NewsList from "./newsList";
 import { getMixedAnimeNews } from "@/hooks/getAnimeNews";
-import { AnimeFilter, getTopAnime } from "@/hooks/getTopAnime";
+import { getTopAnime } from "@/hooks/getTopAnime";
 
 export default async function AnimeNews() {
-  const data = await getTopAnime(AnimeFilter.Upcoming);
+  const data = await getTopAnime("upcoming");
   const news = await getMixedAnimeNews(data);
   return (
     <Section className="bg-secondary-background">

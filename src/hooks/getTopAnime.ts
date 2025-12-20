@@ -1,10 +1,5 @@
-export enum AnimeFilter {
-  Upcoming = "upcoming",
-  Airing = "airing",
-  Popularity = "bypopularity",
-}
-
-export async function getTopAnime(filter: AnimeFilter) {
+export type AnimeCategory = "upcoming" | "airing" | "bypopularity";
+export async function getTopAnime(filter: AnimeCategory) {
   const url = "https://api.jikan.moe/v4";
 
   let endpoint = "/top/anime";
