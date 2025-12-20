@@ -7,8 +7,6 @@ export async function getTopAnime(isUpcomming: boolean) {
     type: "tv",
     limit: "10",
     filter: isUpcomming ? "upcoming" : "bypopularity",
-    order_by: isUpcomming ? "bypopularity" : "",
-    sort: "asc",
   });
 
   try {
