@@ -1,6 +1,6 @@
 import { Day } from "@/hooks/getAnimeAiring";
 import { cn } from "@/lib/utils";
-import { motion } from "framer-motion"; // 1. Importujemy motion
+import { motion } from "framer-motion";
 
 interface AnimeCalenderButtonsProps {
   day: Day;
