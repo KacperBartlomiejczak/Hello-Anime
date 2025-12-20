@@ -1,3 +1,4 @@
+export const dynamic = "force-dynamic";
 import Hero from "@/components/hero/hero";
 
 import { getTopAnime } from "@/hooks/getTopAnime";
