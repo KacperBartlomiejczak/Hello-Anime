@@ -1,7 +1,7 @@
 export const dynamic = "force-dynamic";
 import Hero from "@/components/hero/hero";
 
-import { getTopAnime } from "@/hooks/getTopAnime";
+import { AnimeFilter, getTopAnime } from "@/hooks/getTopAnime";
 import { Suspense } from "react";
 import CardSliderServer from "@/components/cardSlider/cardSliderServer";
 import CardSliderSkeleton from "@/components/cardSlider/cardSliderSkieleton";
@@ -10,7 +10,8 @@ import AnimeNews from "@/components/animeNews/animeNews";
 import HeroSkeleton from "@/components/hero/heroSkeleton";
 
 export default async function Home() {
-  const topData = await getTopAnime(false);
+  const topData = await getTopAnime(AnimeFilter.Popularity);
+  console.log(topData);
 
   return (
     <>
