@@ -19,7 +19,7 @@ export default function AnimeCalenderButtons({
   daysOption,
 }: AnimeCalenderButtonsProps) {
   return (
-    <div className="flex justify-center items-center w-full py-2 gap-2 md:gap-3 lg:gap-4">
+    <div className="flex justify-center items-center w-full py-2 gap-2 md:gap-3 lg:gap-6">
       {daysOption.map((dayValue) => {
         const isActive = dayValue.value === day;
 
@@ -28,16 +28,13 @@ export default function AnimeCalenderButtons({
             key={dayValue.value}
             onClick={() => onDayChange(dayValue.value)}
             className={cn(
-              // 2. Ważne: 'relative' żeby tło wiedziało względem czego się pozycjonować
-              "relative px-2 py-1.5 rounded-xl transition-colors duration-300 cursor-pointer text-sm font-medium outline-none",
-              // Jeśli aktywny to biały tekst, jeśli nie to szary/domyślny
+              "relative px-2 py-1.5 my-2 rounded-xl transition-colors duration-300 cursor-pointer text-sm md:text-base font-medium outline-none",
+
               isActive ? "text-white" : "text-gray-400 hover:text-gray-200"
             )}
           >
-            {/* 3. Tekst musi być na wierzchu (z-index), bo inaczej tło go przykryje */}
             <span className="relative z-10">{dayValue.label}</span>
 
-            {/* 4. MAGICZNE TŁO */}
             {isActive && (
               <motion.div
                 layoutId="active-pill-background"

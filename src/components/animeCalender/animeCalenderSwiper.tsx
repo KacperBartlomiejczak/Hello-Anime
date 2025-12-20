@@ -36,7 +36,7 @@ export default function AnimeCalenderSwiper({
         1280: {
           slidesPerView: 4,
           centeredSlides: false,
-          spaceBetween: 20,
+          spaceBetween: 25,
         },
       }}
     >
