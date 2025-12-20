@@ -23,6 +23,6 @@ export async function getTopAnime(isUpcomming: boolean) {
     return data;
   } catch (error) {
     console.error("Error just ocurred ", error);
-    return [];
+    return { data: [] };
   }
 }

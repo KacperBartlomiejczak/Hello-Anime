@@ -1,15 +1,21 @@
 import { motion } from "framer-motion";
 import { cn } from "@/lib/utils";
+import { Anime } from "@/types/anime";
 
 interface HeroDotProps {
   currentIndex: number;
   onDot: (index: number) => void;
+  animes: Anime[];
 }
 
-export default function HeroDots({ currentIndex, onDot }: HeroDotProps) {
+export default function HeroDots({
+  currentIndex,
+  onDot,
+  animes,
+}: HeroDotProps) {
   return (
     <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex gap-3 z-20">
-      {[0, 1, 2, 3, 4].map((dot, index) => (
+      {animes.map((_, index) => (
         <motion.div
           key={index}
           onClick={() => onDot(index)}
