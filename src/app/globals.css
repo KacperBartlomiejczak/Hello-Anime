@@ -1,5 +1,9 @@
 @import "tailwindcss";
 
+html {
+  scroll-behavior: smooth;
+}
+
 @keyframes shimmer {
   0% {
     background-position: -200% 0;
@@ -17,6 +21,6 @@
   --color-secondary: #f08a5d;
   --color-text: #eaeaea;
   --color-secondary-background: #232342;
-  
+
   --animate-shimmer: shimmer 2s ease-in-out infinite;
 }

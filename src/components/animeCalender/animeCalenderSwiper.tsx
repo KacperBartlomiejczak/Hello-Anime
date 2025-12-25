@@ -14,8 +14,8 @@ export default function AnimeCalenderSwiper({
     <Swiper
       modules={[Navigation]}
       slidesPerView={1.2}
-      centeredSlides={true}
-      spaceBetween={40}
+      centeredSlides={false}
+      spaceBetween={60}
       navigation={{
         nextEl: ".swiper-button-next-calender",
         prevEl: ".swiper-button-prev-calender",
