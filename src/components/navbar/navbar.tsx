@@ -6,6 +6,7 @@ import NavHamburger from "./navHamburger";
 import Link from "next/link";
 import { useState } from "react";
 import NavLinks from "./NavLinks";
+import UserMenu from "./userMenu";
 
 import NavSearchAnime from "./navSearchAnime";
 import { cn } from "@/lib/utils";
@@ -13,7 +14,6 @@ import { useBlockScroll } from "@/hooks/useBlockScroll";
 
 export default function Navbar() {
   const [isActive, setIsActive] = useState(false);
-
   const [isSearch, setIsSearch] = useState(false);
 
   useBlockScroll(isActive);
@@ -37,9 +37,7 @@ export default function Navbar() {
             <NavLink isButton onClick={() => setIsSearch(true)}>
               <Search size={28} />
             </NavLink>
-            <NavLink href="/login">
-              <User size={28} />
-            </NavLink>
+            <UserMenu />
             <NavHamburger
               isActive={isActive}
               onClick={() => {
