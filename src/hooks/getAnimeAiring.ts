@@ -26,10 +26,7 @@ export async function getAnimeAiring(day: Day) {
   try {
     await delay(1000);
     const response = await fetch(
-      `${url}${endpoint}?filter=${day}&sfw=true&limit=20&kids=false&type=tv`,
-      {
-        next: { revalidate: 3600 },
-      }
+      `${url}${endpoint}?filter=${day}&sfw=true&limit=20&kids=false&type=tv`
     );
     if (!response.ok) {
       throw new Error(`Couldn't connect with api ${response.status}`);

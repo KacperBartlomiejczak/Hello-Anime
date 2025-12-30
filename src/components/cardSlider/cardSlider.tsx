@@ -29,7 +29,7 @@ export default function CardSlider({ animes }: CardSliderProps) {
           slidesPerView={"auto"}
           className="w-full flex items-center justify-center gap-4"
           breakpoints={{
-            640: { spaceBetween: 20, centeredSlides: true },
+            640: { spaceBetween: 20 },
             1020: { spaceBetween: 30 },
           }}
         >

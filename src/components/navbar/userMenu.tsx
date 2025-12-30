@@ -52,7 +52,7 @@ export default function UserMenu() {
               transition={{ duration: 0.2 }}
               className="absolute right-0 mt-2 w-56 bg-secondary-background rounded-xl shadow-2xl border border-white/10 overflow-hidden z-50 flex flex-col"
             >
-              {/* Nagłówek z danymi */}
+              
               <div className="p-4 border-b border-white/10 bg-white/5">
                 <p className="text-sm text-white font-bold truncate">
                   {session.user?.name}
@@ -62,7 +62,7 @@ export default function UserMenu() {
                 </p>
               </div>
 
-              {/* --- TU JEST LINK DO PROFILU --- */}
+              
               <Link
                 href="/profile"
                 onClick={() => setIsOpen(false)}
@@ -71,7 +71,7 @@ export default function UserMenu() {
                 <User size={18} />
                 Mój Profil
               </Link>
-              {/* ------------------------------- */}
+              
 
               <button
                 onClick={() => signOut()}
