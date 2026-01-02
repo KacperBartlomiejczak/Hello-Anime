@@ -8,15 +8,14 @@ import CardSliderSkeleton from "@/components/cardSlider/cardSliderSkieleton";
 import AnimeNews from "@/components/animeNews/animeNews";
 
 import HeroSkeleton from "@/components/hero/heroSkeleton";
-import { getAnimeAiring } from "@/hooks/getAnimeAiring";
+
 import AnimeCalender from "@/components/animeCalender/animeCalender";
 import Footer from "@/components/footer/footer";
 
 export default async function Home() {
   const topData = await getTopAnime("bypopularity");
-  const scheduledData = await getAnimeAiring("monday");
-
-  console.log(scheduledData);
+  
+  
 
   return (
     <>

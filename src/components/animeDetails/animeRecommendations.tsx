@@ -21,10 +21,12 @@ interface Recommendation {
 
 interface RecommendationsSectionProps {
   recommendations: Recommendation[];
+  title?: string;
 }
 
 export default function RecommendationsSection({
   recommendations,
+  title = "Recommendations",
 }: RecommendationsSectionProps) {
   if (!recommendations || recommendations.length === 0) return null;
 
@@ -32,7 +34,7 @@ export default function RecommendationsSection({
     <div className="container mx-auto px-4 py-8">
       <h3 className="text-xl font-bold mb-6 font-poppins flex items-center gap-2">
         <span className="w-1 h-6 bg-brand rounded-full block"></span>
-        Recommendations
+        {title}
       </h3>
 
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
