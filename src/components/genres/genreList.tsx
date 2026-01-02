@@ -28,7 +28,7 @@ export default function GenreList({ genres }: GenreListProps) {
         Genres
       </h3>
       
-      <div className="flex flex-wrap gap-2 lg:flex-col">
+      <div className="flex flex-wrap gap-2">
         <Link
           href="/top-anime"
           className={cn(
@@ -46,7 +46,7 @@ export default function GenreList({ genres }: GenreListProps) {
             key={genre.mal_id}
             href={`/top-anime?genre=${genre.mal_id}`}
             className={cn(
-              "px-4 py-2 rounded-lg text-sm transition-all duration-300 border border-white/5 flex justify-between items-center group",
+              "px-4 py-2 rounded-lg text-sm transition-all duration-300 border border-white/5 flex items-center gap-2 group",
               currentGenre === genre.mal_id.toString()
                 ? "bg-brand text-white shadow-lg shadow-brand/20 font-semibold"
                 : "bg-secondary-background text-gray-400 hover:bg-white/10 hover:text-white"
