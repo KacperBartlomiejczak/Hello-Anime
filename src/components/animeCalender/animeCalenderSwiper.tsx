@@ -23,7 +23,7 @@ export default function AnimeCalenderSwiper({
       breakpoints={{
         640: {
           slidesPerView: 2,
-          centeredSlides: true,
+          centeredSlides: false,
           spaceBetween: 20,
         },
 

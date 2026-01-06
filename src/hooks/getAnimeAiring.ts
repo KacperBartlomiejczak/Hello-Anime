@@ -1,3 +1,5 @@
+import { jikanRateLimiter } from "@/lib/jikanRateLimiter";
+
 export type Day =
   | "monday"
   | "tuesday"
@@ -17,17 +19,14 @@ export const daysOptions: { value: Day; label: string }[] = [
   { value: "sunday", label: "Sun" },
 ];
 
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
-
 export async function getAnimeAiring(day: Day) {
   const url = "https://api.jikan.moe/v4";
   const endpoint = "/schedules";
 
   try {
-    await delay(1000);
-    const response = await fetch(
+    const response = await jikanRateLimiter.schedule(() => fetch(
       `${url}${endpoint}?filter=${day}&sfw=true&limit=20&kids=false&type=tv`
-    );
+    ));
     if (!response.ok) {
       throw new Error(`Couldn't connect with api ${response.status}`);
     }

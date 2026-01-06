@@ -1,34 +1,26 @@
 import { News } from "@/types/news";
-import Link from "next/link";
+import AnimeTile from "./AnimeTile";
 
 interface NewsProps {
   news: News[];
 }
 
 export default function NewsListing({ news }: NewsProps) {
+  // Deduplicate news based on mal_id to prevent key collisions, then slice
+  const uniqueNews = news.filter(
+    (item, index, self) =>
+      index === self.findIndex((t) => t.mal_id === item.mal_id)
+  );
+
+  // Fix: slice(1) instead of slice(1, -1) to include the last item
+  // We want to skip the first one because it's the MainNews
+  const listedNews = uniqueNews.slice(1);
+
   return (
-    <div className="flex flex-col gap-5 mt-2 w-full lg:w-1/2">
-      {news.slice(1, -1).map((n, index) => {
-        return (
-          <Link
-            href={n.url}
-            key={index}
-            target="_blank"
-            className="flex flex-col w-full border-brand/20 border p-2 rounded-lg bg-background shadow-brand shadow-sm hover:scale-110 hover:border-brand transition-all duration-300"
-          >
-            <h4 className="font-poppins font-bold text-sm/loose">{n.title}</h4>
-            <div className="flex flex-row w-full items-center justify-between">
-              <p className="text-brand text-sm">{n.author_username}</p>
-              <p
-                className="text-gray-400 text-xs py-1"
-                suppressHydrationWarning
-              >
-                {new Date(n.date).toLocaleDateString()}
-              </p>
-            </div>
-          </Link>
-        );
-      })}
+    <div className="grid grid-cols-1 gap-3 w-full lg:grid-cols-2 xl:grid-cols-1 lg:w-full xl:w-[30%]">
+      {listedNews.map((n) => (
+        <AnimeTile key={n.mal_id} news={n} />
+      ))}
     </div>
   );
 }

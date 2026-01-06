@@ -1,4 +1,5 @@
 export type AnimeCategory = "upcoming" | "airing" | "bypopularity";
+import { jikanRateLimiter } from "@/lib/jikanRateLimiter";
 export async function getTopAnime(
   filter: AnimeCategory,
   page: number = 1,
@@ -9,21 +10,20 @@ export async function getTopAnime(
   let finalUrl = "";
 
   if (genreId) {
-    // Używamy endpointu wyszukiwania, jeśli wybrano gatunek
-    // Mapujemy 'filter' na odpowiednie parametry API
+    
     const statusParam = filter === "bypopularity" ? "" : `&status=${filter}`;
     const orderByParam = "&order_by=score&sort=desc";
     
     finalUrl = `${url}/anime?sfw=true&type=tv&limit=${limit}&page=${page}&genres=${genreId}${statusParam}${orderByParam}`;
   } else {
-    // Standardowy ranking
+   
     finalUrl = `${url}/top/anime?sfw=true&type=tv&limit=${limit}&page=${page}&filter=${filter}`;
   }
 
   try {
-    const response = await fetch(finalUrl, {
+    const response = await jikanRateLimiter.schedule( () => fetch(finalUrl, {
       next: { revalidate: 3600 },
-    });
+    }));
 
     if (!response.ok) {
       throw new Error(`Couldn't connected with api ${response.status}`);

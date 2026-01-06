@@ -1,39 +1,52 @@
 import { News } from "@/types/news";
 import Image from "next/image";
 import Link from "next/link";
+import { cn } from "@/lib/utils";
+import NewsButton from "./NewsButton";
+
 interface MainNewsProps {
   news: News;
+  className?: string;
 }
 
-export default function MainNews({ news }: MainNewsProps) {
+export default function MainNews({ news, className }: MainNewsProps) {
   const mainNews = news;
-  console.log(mainNews);
+
   return (
-    <div className="group flex flex-col w-full h-120 gap-2 items-start justify-center md:h-150 lg:w-1/3 lg:h-130 lg:justify-start">
-      <div className="relative w-full h-92 md:h-87">
+    <div
+      className={cn(
+        "group flex flex-col w-full gap-3 items-start justify-start xl:w-[70%]",
+        className
+      )}
+    >
+      <div className="relative w-full aspect-video md:aspect-[21/9] xl:aspect-video rounded-2xl overflow-hidden shadow-lg shadow-black/20">
         <Image
           src={mainNews.images.jpg.image_url}
           alt={mainNews.title}
           fill
-          className="rounded-xl object-cover object-top group-hover:scale-105 transition-transform"
-          sizes="100%"
+          className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+          sizes="(max-width: 768px) 100vw, (max-width: 1280px) 100vw, 70vw"
+          priority
         />
-      </div>
-      <div className="flex flex-row justify-between mt-2 w-full items-center">
-        <p className="text-gray-400 text-xs" suppressHydrationWarning>
-          {new Date(mainNews.date).toLocaleDateString()}
-        </p>
-        <p className="text-brand text-sm">{mainNews.author_username}</p>
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+        
+        <div className="absolute bottom-0 left-0 p-4 md:p-6 w-full flex flex-col gap-2">
+            <div className="flex flex-row justify-between w-full items-center text-white/80 text-xs md:text-sm font-medium">
+               <span className="bg-brand/90 px-2 py-0.5 rounded text-white shadow-sm backdrop-blur-sm">Featured</span>
+               <span>{new Date(mainNews.date).toLocaleDateString()}</span>
+            </div>
+             <h3 className="font-poppins font-bold text-lg md:text-2xl text-white line-clamp-2 md:line-clamp-none drop-shadow-md">
+                {mainNews.title}
+            </h3>
+        </div>
       </div>
 
-      <h3 className="font-poppins font-bold text-xl ">{mainNews.title}</h3>
-      <Link
-        target="_blank"
-        className="py-2 px-4 bg-brand font-poppins font-bold rounded-xl hover:bg-brand/60 shadow-brand/20 shadow-md transition-colors lg:text-lg"
-        href={mainNews.url}
-      >
-        Read more
-      </Link>
+      <div className="flex flex-col gap-2 w-full mt-2 px-1">
+         <div className="flex justify-between items-center">
+             <p className="text-brand font-semibold text-sm">{mainNews.author_username}</p>
+             <NewsButton url={mainNews.url} />
+         </div>
+      </div>
     </div>
   );
 }

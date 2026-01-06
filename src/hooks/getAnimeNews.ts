@@ -1,7 +1,6 @@
 import { getTopAnime } from "./getTopAnime";
 import { Anime } from "@/types/anime";
-
-const delay = (ms: number) => new Promise((resolve) => setTimeout(resolve, ms));
+import { jikanRateLimiter } from "@/lib/jikanRateLimiter";
 
 const FAKE_NEWS_RESPONSE = {
   data: [
@@ -40,9 +39,9 @@ async function getAnimeNews(id: string) {
   const baseUrl = "https://api.jikan.moe/v4/anime";
 
   try {
-    const response = await fetch(`${baseUrl}/${id}/news`, {
+    const response = await jikanRateLimiter.schedule(() => fetch(`${baseUrl}/${id}/news`, {
       next: { revalidate: 3600 },
-    });
+    }));
     if (response.status === 429) {
       console.warn("⚠️ Limit API osiągnięty! Używam danych testowych.");
       return FAKE_NEWS_RESPONSE;
@@ -68,23 +67,19 @@ export async function getMixedAnimeNews(data: any) {
 
     if (!topAnime || !topAnime.data) return [];
 
-    const top6 = topAnime.data.slice(0, 6);
-    const allNews = [];
+    const top10 = topAnime.data.slice(0, 10);
+    
+    const newsPromises = top10.map((anime: any) => getAnimeNews(anime.mal_id));
+    const newsResults = await Promise.all(newsPromises);
 
-    for (const anime of top6) {
-      const news = await getAnimeNews(anime.mal_id);
-
-      if (news && news.data) {
-        allNews.push(...news.data);
-      }
-    }
+    const allNews = newsResults.flatMap(news => news && news.data ? news.data : []);
 
     const sortedNews = allNews.sort(
       (a: any, b: any) =>
         new Date(b.date).getTime() - new Date(a.date).getTime()
     );
 
-    return sortedNews.slice(0, 6);
+    return sortedNews.slice(0, 12);
   } catch (err) {
     console.error("Error with aggragate news", err);
     return [];
