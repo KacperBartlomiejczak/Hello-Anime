@@ -12,7 +12,7 @@ export const dataLinks = [
   {
     id: 3,
     title: "News",
-    href: "/#news",
+    href: "/news",
   },
   {
     id: 4,

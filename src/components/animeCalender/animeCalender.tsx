@@ -1,10 +1,11 @@
 "use client";
 
-import { Day, getAnimeAiring, daysOptions } from "@/hooks/getAnimeAiring";
+import { Day, daysOptions } from "@/hooks/getAnimeAiring";
 import { useEffect, useState } from "react";
 import { Anime } from "@/types/anime";
 import AnimeCalenderButtons from "./animeCalenderButtons";
 import CardSlider from "../cardSlider/cardSlider";
+import { getAnimeAiringAction } from "@/actions/getAnimeAiringAction";
 
 export default function AnimeCalender() {
   const [day, setDay] = useState<Day>("monday");
@@ -19,8 +20,8 @@ export default function AnimeCalender() {
   useEffect(() => {
     const fetchAiringAnime = async () => {
       setLoading(true);
-      setAnimeAiring([]);
-      const data = await getAnimeAiring(day);
+      // setAnimeAiring([]); // Optional: keep previous data while loading to prevent flash
+      const data = await getAnimeAiringAction(day);
       setAnimeAiring(data);
       setLoading(false);
     };
@@ -33,6 +34,7 @@ export default function AnimeCalender() {
       title="Anime Scheduled"
       animes={animeAiring}
       isLoading={loading}
+      hideDropdown={true}
     >
       <div className="container mx-auto relative ">
         <AnimeCalenderButtons
