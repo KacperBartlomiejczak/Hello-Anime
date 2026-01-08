@@ -11,7 +11,13 @@ export default function LoginButtonsGroup() {
   const [isLoading, setIsLoading] = useState(false);
   const handleLogin = async (provider: string) => {
     setIsLoading(true);
-    await signIn(provider, { callbackUrl: "/" });
+    try {
+      await signIn(provider, { callbackUrl: "/" });
+    } catch (error) {
+      console.error("Login error:", error);
+    } finally {
+      setIsLoading(false);
+    }
   };
   return (
     <>

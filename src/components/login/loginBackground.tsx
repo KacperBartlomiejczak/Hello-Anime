@@ -5,7 +5,7 @@ export default function LoginBackground() {
       <div
         className="absolute inset-0 h-screen w-screen z-0 object-center object-cover"
         style={{ backgroundImage: 'url("/bg.jpg")' }}
-      ></div>
+      />
     </>
   );
 }
