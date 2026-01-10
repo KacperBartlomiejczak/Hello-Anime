@@ -2,7 +2,22 @@ import { getTopAnime } from "./getTopAnime";
 import { Anime } from "@/types/anime";
 import { jikanRateLimiter } from "@/lib/jikanRateLimiter";
 
-const FAKE_NEWS_RESPONSE = {
+export interface AnimeNewsItem {
+  mal_id: number;
+  url: string;
+  title: string;
+  date: string;
+  author_username: string;
+  images: {
+    jpg: {
+      image_url: string;
+    };
+  };
+  forum_url: string;
+  excerpt: string;
+}
+
+const FAKE_NEWS_RESPONSE: { data: AnimeNewsItem[] } = {
   data: [
     {
       mal_id: 1,
@@ -17,6 +32,8 @@ const FAKE_NEWS_RESPONSE = {
         },
       },
       forum_url: "#",
+      excerpt:
+        "To jest przykładowy wstęp do newsa, który jest bardzo ciekawy...",
     },
     {
       mal_id: 2,
@@ -31,17 +48,21 @@ const FAKE_NEWS_RESPONSE = {
         },
       },
       forum_url: "#",
+      excerpt:
+        "Kolejny niesamowity news ze świata anime, który musisz przeczytać...",
     },
   ],
 };
 
-async function getAnimeNews(id: string) {
+export async function getAnimeNews(id: string | number) {
   const baseUrl = "https://api.jikan.moe/v4/anime";
 
   try {
-    const response = await jikanRateLimiter.schedule(() => fetch(`${baseUrl}/${id}/news`, {
-      next: { revalidate: 3600 },
-    }));
+    const response = await jikanRateLimiter.schedule(() =>
+      fetch(`${baseUrl}/${id}/news`, {
+        next: { revalidate: 3600 },
+      })
+    );
     if (response.status === 429) {
       console.warn("⚠️ Limit API osiągnięty! Używam danych testowych.");
       return FAKE_NEWS_RESPONSE;
@@ -54,6 +75,11 @@ async function getAnimeNews(id: string) {
     }
 
     const data = await response.json();
+
+    if (!data.data || data.data.length === 0) {
+      return FAKE_NEWS_RESPONSE;
+    }
+
     return data;
   } catch (err) {
     console.log("Couldnt get anime news", err);
@@ -68,11 +94,13 @@ export async function getMixedAnimeNews(data: any) {
     if (!topAnime || !topAnime.data) return [];
 
     const top10 = topAnime.data.slice(0, 10);
-    
+
     const newsPromises = top10.map((anime: any) => getAnimeNews(anime.mal_id));
     const newsResults = await Promise.all(newsPromises);
 
-    const allNews = newsResults.flatMap(news => news && news.data ? news.data : []);
+    const allNews = newsResults.flatMap((news) =>
+      news && news.data ? news.data : []
+    );
 
     const sortedNews = allNews.sort(
       (a: any, b: any) =>

@@ -1,5 +1,5 @@
 export interface Anime {
-  mal_id: string;
+  mal_id: number;
   images: {
     webp: {
       image_url: string;

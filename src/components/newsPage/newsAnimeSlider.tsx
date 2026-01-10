@@ -9,7 +9,7 @@ import { cn } from "@/lib/utils";
 interface NewsAnimeSliderProps {
   animes: Anime[];
   onChangeNews: (index: number) => void;
-  currentActive: string;
+  currentActive: number;
 }
 
 export default function NewsAnimeSlider({

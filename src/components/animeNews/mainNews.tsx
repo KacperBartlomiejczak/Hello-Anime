@@ -19,16 +19,16 @@ export default function MainNews({ news, className }: MainNewsProps) {
         className
       )}
     >
-      <div className="relative w-full aspect-video md:aspect-[21/9] xl:aspect-video rounded-2xl overflow-hidden shadow-lg shadow-black/20">
+      <div className="relative w-full aspect-video md:aspect-21/9 xl:aspect-video rounded-2xl overflow-hidden shadow-lg shadow-black/20">
         <Image
           src={mainNews.images.jpg.image_url}
           alt={mainNews.title}
           fill
-          className="object-cover object-top group-hover:scale-105 transition-transform duration-500"
+          className="object-cover object-center group-hover:scale-105 transition-transform duration-500"
           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 100vw, 70vw"
           priority
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+        <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
         
         <div className="absolute bottom-0 left-0 p-4 md:p-6 w-full flex flex-col gap-2">
             <div className="flex flex-row justify-between w-full items-center text-white/80 text-xs md:text-sm font-medium">

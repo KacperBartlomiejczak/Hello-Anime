@@ -102,7 +102,7 @@ export default function NavSearchAnime({
                 </div>
               )}
               {!isLoading && results.length > 0 && (
-                <div className="grid grid-cols-2 h-2/3 gap-4 p-2">
+                <div className="grid grid-cols-1 md:grid-cols-2 h-2/3 gap-4 p-2">
                   {results.map((anime) => (
                     <Link
                       key={anime.mal_id}
