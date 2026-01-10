@@ -31,7 +31,7 @@ export default function NavLink({
         </button>
       ) : (
         <Link
-          href={href ? href : "/"}
+          href={href || "/"}
           className={cn(
             "text-white hover:text-brand focus:text-brand transition-colors duration-300 cursor-pointer",
             className

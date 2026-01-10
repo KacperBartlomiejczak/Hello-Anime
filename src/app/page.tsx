@@ -1,12 +1,10 @@
 export const dynamic = "force-dynamic";
-import Hero from "@/components/hero/hero";
 
-import { getTopAnime } from "@/hooks/getTopAnime";
-import { Suspense } from "react";
-import HeroServer from "@/components/hero/heroServer";
+import AnimeNews from "@/components/animeNews/animeNews";
 import CardSliderServer from "@/components/cardSlider/cardSliderServer";
 import CardSliderSkeleton from "@/components/cardSlider/cardSliderSkieleton";
-import AnimeNews from "@/components/animeNews/animeNews";
+import HeroServer from "@/components/hero/heroServer";
+import { Suspense } from "react";
 
 import HeroSkeleton from "@/components/hero/heroSkeleton";
 

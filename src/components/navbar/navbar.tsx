@@ -1,16 +1,16 @@
 "use client";
 
-import { User, Search } from "lucide-react";
-import NavLink from "./navLink";
-import NavHamburger from "./navHamburger";
+import { Search } from "lucide-react";
 import Link from "next/link";
 import { useState } from "react";
+import NavHamburger from "./navHamburger";
+import NavLink from "./navLink";
 import NavLinks from "./NavLinks";
 import UserMenu from "./userMenu";
 
-import NavSearchAnime from "./navSearchAnime";
-import { cn } from "@/lib/utils";
 import { useBlockScroll } from "@/hooks/useBlockScroll";
+import { cn } from "@/lib/utils";
+import NavSearchAnime from "./navSearchAnime";
 
 export default function Navbar() {
   const [isActive, setIsActive] = useState(false);

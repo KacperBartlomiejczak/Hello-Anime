@@ -2,16 +2,12 @@
 
 import { Anime } from "@/types/anime";
 import Title from "../ui/title";
-
 import Card from "../ui/card";
-
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 import { motion, AnimatePresence } from "framer-motion";
-
 import "swiper/css/free-mode";
 import { FreeMode } from "swiper/modules";
-
 import Section from "../ui/section";
 import { ReactNode, useState, useEffect } from "react";
 import CardPlaceholder from "./cardPlaceholder";
@@ -35,7 +31,8 @@ export default function CardSlider({
   hideDropdown,
 }: CardSliderProps) {
   const [animes, setAnimes] = useState(initialAnimes);
-  const [selectedFilter, setSelectedFilter] = useState<AnimeCategory>("upcoming");
+  const [selectedFilter, setSelectedFilter] =
+    useState<AnimeCategory>("upcoming");
   const [isLoading, setIsLoading] = useState(initialLoading || false);
 
   // Sync internal state with props when parent updates them
@@ -49,15 +46,22 @@ export default function CardSlider({
     }
   }, [initialLoading]);
 
-  const handleFilterChange = async (e: React.ChangeEvent<HTMLSelectElement>) => {
+  const handleFilterChange = async (
+    e: React.ChangeEvent<HTMLSelectElement>
+  ) => {
     const newFilter = e.target.value as AnimeCategory;
     setSelectedFilter(newFilter);
     setIsLoading(true);
-    const result = await getTopAnimeAction(newFilter);
-    if (result && result.data) {
-      setAnimes(result.data);
+    try {
+      const result = await getTopAnimeAction(newFilter);
+      if (result && result.data) {
+        setAnimes(result.data);
+      }
+    } catch {
+      console.error("Error while filtering");
+    } finally {
+      setIsLoading(false);
     }
-    setIsLoading(false);
   };
 
   const getTitle = () => {

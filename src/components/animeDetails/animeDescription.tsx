@@ -1,6 +1,6 @@
 "use client";
+import { motion } from "framer-motion";
 import { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 
 interface AnimeDescriptionProps {
   desc: string;
@@ -20,7 +20,7 @@ export default function AnimeDescription({ desc }: AnimeDescriptionProps) {
         <p className="text-gray-300, leading-6">{desc}</p>
 
         {!isExpanded && (
-          <div className="absolute bottom-0 left-0 w-full h-8 bg-linear-to-t from-background to-transparent"></div>
+          <div className="absolute bottom-0 left-0 w-full h-8 bg-linear-to-t from-background to-transparent" />
         )}
       </motion.div>
       <button

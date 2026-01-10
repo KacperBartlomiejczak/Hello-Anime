@@ -17,7 +17,7 @@ export default function NewsButton({ url, className, name }: NewsButtonProps) {
       )}
       href={url}
     >
-      {name ? name : "Read more"}
+      {name || "Read more"}
     </Link>
   );
 }

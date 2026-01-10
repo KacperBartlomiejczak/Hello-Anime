@@ -17,7 +17,7 @@ export default function NewsAnimeSlider({
   onChangeNews,
   currentActive,
 }: NewsAnimeSliderProps) {
-  let classesHeading = `px-5 text-center w-[150px] text-xs md:text-sm lg:text-base md:w-[200px] lg:w-[250px] transition-colors duration-30`;
+  const classesHeading = `px-5 text-center w-[150px] text-xs md:text-sm lg:text-base md:w-[200px] lg:w-[250px] transition-colors duration-30`;
 
   return (
     <Swiper

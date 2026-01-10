@@ -1,5 +1,7 @@
 export type AnimeCategory = "upcoming" | "airing" | "bypopularity";
 import { jikanRateLimiter } from "@/lib/jikanRateLimiter";
+import { Anime } from "@/types/anime";
+
 export async function getTopAnime(
   filter: AnimeCategory,
   page: number = 1,
@@ -10,20 +12,20 @@ export async function getTopAnime(
   let finalUrl = "";
 
   if (genreId) {
-    
     const statusParam = filter === "bypopularity" ? "" : `&status=${filter}`;
     const orderByParam = "&order_by=score&sort=desc";
-    
+
     finalUrl = `${url}/anime?sfw=true&type=tv&limit=${limit}&page=${page}&genres=${genreId}${statusParam}${orderByParam}`;
   } else {
-   
     finalUrl = `${url}/top/anime?sfw=true&type=tv&limit=${limit}&page=${page}&filter=${filter}`;
   }
 
   try {
-    const response = await jikanRateLimiter.schedule( () => fetch(finalUrl, {
-      next: { revalidate: 3600 },
-    }));
+    const response = await jikanRateLimiter.schedule(() =>
+      fetch(finalUrl, {
+        next: { revalidate: 3600 },
+      })
+    );
 
     if (!response.ok) {
       throw new Error(`Couldn't connected with api ${response.status}`);
@@ -33,7 +35,7 @@ export async function getTopAnime(
     // Deduplicate data to avoid key collisions
     if (result.data && Array.isArray(result.data)) {
       const seen = new Set();
-      result.data = result.data.filter((anime: any) => {
+      result.data = result.data.filter((anime: Anime) => {
         const duplicate = seen.has(anime.mal_id);
         seen.add(anime.mal_id);
         return !duplicate;

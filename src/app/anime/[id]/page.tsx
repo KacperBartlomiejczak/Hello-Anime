@@ -1,12 +1,11 @@
 import CharactersGrid from "@/components/animeDetails/animeCharacter";
 import AnimeDetails from "@/components/animeDetails/animeDetails";
-
 import { getAnimeCharacters } from "@/hooks/getAnimeCharacters";
 import { getAnimeDetails } from "@/hooks/getAnimeDetails";
 import { getAnimeRecomendations } from "@/hooks/getAnimeRecomendations";
 import { getTopAnime } from "@/hooks/getTopAnime";
-
 import RecommendationsSection from "@/components/animeDetails/animeRecommendations";
+import { Anime } from "@/types/anime";
 
 interface PageProps {
   params: Promise<{ id: string }>;
@@ -14,9 +13,7 @@ interface PageProps {
 
 export default async function Page({ params }: PageProps) {
   const { id } = await params;
-
   const data = await getAnimeDetails(id);
-
   const characters = await getAnimeCharacters(id);
 
   let recommendations = await getAnimeRecomendations(id);
@@ -26,7 +23,7 @@ export default async function Page({ params }: PageProps) {
     const topAnime = await getTopAnime("bypopularity");
     if (topAnime?.data) {
       // Map Top Anime to Recommendation structure
-      recommendations = topAnime.data.slice(0, 5).map((anime: any) => ({
+      recommendations = topAnime.data.slice(0, 5).map((anime: Anime) => ({
         entry: {
           mal_id: anime.mal_id,
           url: anime.url,

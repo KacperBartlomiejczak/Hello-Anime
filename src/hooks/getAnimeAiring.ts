@@ -1,4 +1,5 @@
 import { jikanRateLimiter } from "@/lib/jikanRateLimiter";
+import { Anime } from "@/types/anime";
 
 export type Day =
   | "monday"
@@ -24,19 +25,19 @@ export async function getAnimeAiring(day: Day) {
   const endpoint = "/schedules";
 
   try {
-    const response = await jikanRateLimiter.schedule(() => fetch(
-      `${url}${endpoint}?filter=${day}&sfw=true&limit=20&kids=false&type=tv`
-    ));
+    const response = await jikanRateLimiter.schedule(() =>
+      fetch(
+        `${url}${endpoint}?filter=${day}&sfw=true&limit=20&kids=false&type=tv`
+      )
+    );
     if (!response.ok) {
       throw new Error(`Couldn't connect with api ${response.status}`);
     }
 
     const data = await response.json();
-    const sortedAnime = data.data.sort(
-      (a: any, b: any) => (b.score || 0) - (a.score || 0)
+    return data.data.sort(
+      (a: Anime, b: Anime) => (b.score || 0) - (a.score || 0)
     );
-
-    return sortedAnime;
   } catch (err) {
     console.error(`there was a problem to connect with api ${err}`);
     return [];

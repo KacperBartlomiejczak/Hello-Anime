@@ -17,17 +17,22 @@ export default function AnimeCalender() {
     setDay(dayChanger);
   };
 
-  useEffect(() => {
-    const fetchAiringAnime = async () => {
-      setLoading(true);
-      // setAnimeAiring([]); // Optional: keep previous data while loading to prevent flash
+  const handleFetchAiringAnime = async () => {
+    setLoading(true);
+    // setAnimeAiring([]); // Optional: keep previous data while loading to prevent flash
+    try {
       const data = await getAnimeAiringAction(day);
       setAnimeAiring(data);
+    } catch {
+      console.error("Error while fetching aired anime");
+    } finally {
       setLoading(false);
-    };
+    }
+  };
 
-    fetchAiringAnime();
-  }, [day]);
+  useEffect(() => {
+    handleFetchAiringAnime();
+  }, [day]); //eslint-disable-line
 
   return (
     <CardSlider

@@ -1,6 +1,6 @@
-import { getTopAnime } from "./getTopAnime";
-import { Anime } from "@/types/anime";
 import { jikanRateLimiter } from "@/lib/jikanRateLimiter";
+import { Anime } from "@/types/anime";
+import { News } from "@/types/news";
 
 export interface AnimeNewsItem {
   mal_id: number;
@@ -87,15 +87,17 @@ export async function getAnimeNews(id: string | number) {
   }
 }
 
-export async function getMixedAnimeNews(data: any) {
+export async function getMixedAnimeNews(data: Anime[]) {
   try {
     const topAnime = data;
 
-    if (!topAnime || !topAnime.data) return [];
+    if (!topAnime || !topAnime.length) return [];
 
-    const top10 = topAnime.data.slice(0, 10);
+    const top10 = topAnime.slice(0, 10);
 
-    const newsPromises = top10.map((anime: any) => getAnimeNews(anime.mal_id));
+    const newsPromises = top10.map((anime: Anime) =>
+      getAnimeNews(anime.mal_id)
+    );
     const newsResults = await Promise.all(newsPromises);
 
     const allNews = newsResults.flatMap((news) =>
@@ -103,7 +105,7 @@ export async function getMixedAnimeNews(data: any) {
     );
 
     const sortedNews = allNews.sort(
-      (a: any, b: any) =>
+      (a: News, b: News) =>
         new Date(b.date).getTime() - new Date(a.date).getTime()
     );
 

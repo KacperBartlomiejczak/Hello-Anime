@@ -1,3 +1,5 @@
+import { Character } from "@/types/character";
+
 export async function getAnimeCharacters(id: string) {
   const url = "https://api.jikan.moe/v4";
 
@@ -12,8 +14,8 @@ export async function getAnimeCharacters(id: string) {
     const data = await response.json();
     const characters = data.data || [];
 
-    const sorted = characters.sort((a: any, b: any) => {
-      return a.role == "Main" ? -1 : 1;
+    const sorted = characters.sort((a: Character) => {
+      return a.role === "Main" ? -1 : 1;
     });
 
     return sorted.slice(0, 12);
