@@ -1,19 +1,14 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { Send, User, Mail, MessageSquare, PenTool } from "lucide-react";
+import { User, Mail, PenTool, MessageSquare } from "lucide-react";
 import { useState } from "react";
-import { cn } from "@/lib/utils";
+import ContactInput from "./ContactInput";
+import ContactTextArea from "./ContactTextArea";
+import SubmitButton from "./SubmitButton";
 
 export default function ContactForm() {
   const [focusedInput, setFocusedInput] = useState<string | null>(null);
-
-  const inputClasses =
-    "w-full bg-secondary-background/50 border border-white/10 rounded-lg py-3 px-4 outline-none text-text placeholder:text-gray-500 transition-all duration-300 focus:border-brand focus:shadow-[0_0_15px_rgba(255,46,99,0.3)]";
-
-  const labelClasses =
-    "flex items-center gap-2 text-sm font-medium text-gray-300 mb-2";
-  const iconClasses = "w-4 h-4 text-brand";
 
   return (
     <motion.form
@@ -27,71 +22,48 @@ export default function ContactForm() {
 
       <div className="space-y-6 relative z-10">
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          <div className="space-y-1">
-            <label htmlFor="name" className={labelClasses}>
-              <User className={iconClasses} /> Name
-            </label>
-            <input
-              type="text"
-              id="name"
-              placeholder="Naruto Uzumaki"
-              className={inputClasses}
-              onFocus={() => setFocusedInput("name")}
-              onBlur={() => setFocusedInput(null)}
-            />
-          </div>
-
-          <div className="space-y-1">
-            <label htmlFor="email" className={labelClasses}>
-              <Mail className={iconClasses} /> Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              placeholder="naruto@konoha.com"
-              className={inputClasses}
-              onFocus={() => setFocusedInput("email")}
-              onBlur={() => setFocusedInput(null)}
-            />
-          </div>
-        </div>
-
-        <div className="space-y-1">
-          <label htmlFor="subject" className={labelClasses}>
-            <PenTool className={iconClasses} /> Subject
-          </label>
-          <input
+          <ContactInput
+            id="name"
             type="text"
-            id="subject"
-            placeholder="Feedback about the anime list..."
-            className={inputClasses}
-            onFocus={() => setFocusedInput("subject")}
+            placeholder="Naruto Uzumaki"
+            label="Name"
+            icon={User}
+            onFocus={() => setFocusedInput("name")}
+            onBlur={() => setFocusedInput(null)}
+          />
+
+          <ContactInput
+            id="email"
+            type="email"
+            placeholder="naruto@konoha.com"
+            label="Email"
+            icon={Mail}
+            onFocus={() => setFocusedInput("email")}
             onBlur={() => setFocusedInput(null)}
           />
         </div>
 
-        <div className="space-y-1">
-          <label htmlFor="message" className={labelClasses}>
-            <MessageSquare className={iconClasses} /> Message
-          </label>
-          <textarea
-            id="message"
-            rows={5}
-            placeholder="Tell us what's on your mind..."
-            className={cn(inputClasses, "resize-none")}
-            onFocus={() => setFocusedInput("message")}
-            onBlur={() => setFocusedInput(null)}
-          />
-        </div>
+        <ContactInput
+          id="subject"
+          type="text"
+          placeholder="Feedback about the anime list..."
+          label="Subject"
+          icon={PenTool}
+          onFocus={() => setFocusedInput("subject")}
+          onBlur={() => setFocusedInput(null)}
+        />
 
-        <motion.button
-          whileHover={{ scale: 1.02 }}
-          whileTap={{ scale: 0.98 }}
-          className="w-full py-4 bg-brand hover:bg-red-600 text-white font-bold rounded-xl flex items-center justify-center gap-2 transition-colors shadow-lg shadow-brand/25 group"
-        >
-          <span>Send Message</span>
-          <Send className="w-4 h-4 group-hover:translate-x-1 group-hover:-translate-y-1 transition-transform" />
-        </motion.button>
+        <ContactTextArea
+          id="message"
+          rows={5}
+          placeholder="Tell us what's on your mind..."
+          label="Message"
+          icon={MessageSquare}
+          onFocus={() => setFocusedInput("message")}
+          onBlur={() => setFocusedInput(null)}
+        />
+
+        <SubmitButton />
       </div>
     </motion.form>
   );
