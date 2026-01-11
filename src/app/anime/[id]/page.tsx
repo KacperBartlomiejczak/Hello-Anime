@@ -5,6 +5,7 @@ import { getAnimeDetails } from "@/hooks/getAnimeDetails";
 import { getAnimeRecomendations } from "@/hooks/getAnimeRecomendations";
 import { getTopAnime } from "@/hooks/getTopAnime";
 import RecommendationsSection from "@/components/animeDetails/animeRecommendations";
+import AnimeTrailer from "@/components/animeDetails/AnimeTrailer";
 import { Anime } from "@/types/anime";
 
 interface PageProps {
@@ -40,6 +41,10 @@ export default async function Page({ params }: PageProps) {
   return (
     <div className="flex justify-start mx-auto items-center flex-col container min-h-screen pt-30 gap-2">
       <AnimeDetails anime={data.data} />
+      <AnimeTrailer
+        trailer={data.data.trailer}
+        coverImage={data.data.images.webp.large_image_url}
+      />
       <CharactersGrid characters={characters} />
 
       <RecommendationsSection

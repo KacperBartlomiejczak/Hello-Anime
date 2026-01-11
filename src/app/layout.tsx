@@ -1,6 +1,7 @@
 import { AuthProvider } from "@/components/auth/authProvider";
 import Navbar from "@/components/navbar/navbar";
 import { inter, poppins } from "@/components/ui/font";
+import PageTransition from "@/components/ui/pageTransition";
 import "./globals.css";
 
 export default function RootLayout({
@@ -16,8 +17,7 @@ export default function RootLayout({
         <AuthProvider>
           <main className="w-screen  bg-background flex flex-col items-center justify-center  text-white relative">
             <Navbar />
-
-            {children}
+            <PageTransition>{children}</PageTransition>
           </main>
         </AuthProvider>
       </body>

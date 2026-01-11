@@ -72,9 +72,11 @@ export default function RecommendationsSection({
                 {rec.entry.title}
               </h4>
 
-              <div className="text-xs text-gray-400 mt-auto">
-                Recommended by {rec.votes} user{rec.votes > 1 ? "s" : ""}
-              </div>
+              {rec.votes > 0 && (
+                <div className="text-xs text-gray-400 mt-auto">
+                  Recommended by {rec.votes} user{rec.votes > 1 ? "s" : ""}
+                </div>
+              )}
             </div>
           </Link>
         ))}
