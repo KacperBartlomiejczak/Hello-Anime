@@ -1,4 +1,3 @@
-
 import { cn } from "@/lib/utils";
 import { News } from "@/types/news";
 
@@ -19,7 +18,6 @@ export default function NewsList({ news }: NewsProps) {
       )}
     >
       <MainNews news={news[0]} />
-
       <NewsListing news={news} />
     </div>
   );

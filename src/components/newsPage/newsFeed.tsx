@@ -19,7 +19,7 @@ export default function NewsFeed({ animes }: NewsFeedProps) {
     setCurrentActive(animes[index].mal_id);
   };
 
-  let selectedAnime = animes.find((anime) => anime.mal_id === currentActive);
+  const selectedAnime = animes.find((anime) => anime.mal_id === currentActive);
 
   useEffect(() => {
     const fetchNews = async () => {

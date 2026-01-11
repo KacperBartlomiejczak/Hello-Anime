@@ -9,9 +9,7 @@ interface MainNewsProps {
   className?: string;
 }
 
-export default function MainNews({ news, className }: MainNewsProps) {
-  const mainNews = news;
-
+export default function MainNews({ news: mainNews, className }: MainNewsProps) {
   return (
     <div
       className={cn(
@@ -28,24 +26,28 @@ export default function MainNews({ news, className }: MainNewsProps) {
           sizes="(max-width: 768px) 100vw, (max-width: 1280px) 100vw, 70vw"
           priority
         />
-        <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
-        
+        <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
+
         <div className="absolute bottom-0 left-0 p-4 md:p-6 w-full flex flex-col gap-2">
-            <div className="flex flex-row justify-between w-full items-center text-white/80 text-xs md:text-sm font-medium">
-               <span className="bg-brand/90 px-2 py-0.5 rounded text-white shadow-sm backdrop-blur-sm">Featured</span>
-               <span>{new Date(mainNews.date).toLocaleDateString()}</span>
-            </div>
-             <h3 className="font-poppins font-bold text-lg md:text-2xl text-white line-clamp-2 md:line-clamp-none drop-shadow-md">
-                {mainNews.title}
-            </h3>
+          <div className="flex flex-row justify-between w-full items-center text-white/80 text-xs md:text-sm font-medium">
+            <span className="bg-brand/90 px-2 py-0.5 rounded text-white shadow-sm backdrop-blur-sm">
+              Featured
+            </span>
+            <span>{new Date(mainNews.date).toLocaleDateString()}</span>
+          </div>
+          <h3 className="font-poppins font-bold text-lg md:text-2xl text-white line-clamp-2 md:line-clamp-none drop-shadow-md">
+            {mainNews.title}
+          </h3>
         </div>
       </div>
 
       <div className="flex flex-col gap-2 w-full mt-2 px-1">
-         <div className="flex justify-between items-center">
-             <p className="text-brand font-semibold text-sm">{mainNews.author_username}</p>
-             <NewsButton url={mainNews.url} />
-         </div>
+        <div className="flex justify-between items-center">
+          <p className="text-brand font-semibold text-sm">
+            {mainNews.author_username}
+          </p>
+          <NewsButton url={mainNews.url} />
+        </div>
       </div>
     </div>
   );

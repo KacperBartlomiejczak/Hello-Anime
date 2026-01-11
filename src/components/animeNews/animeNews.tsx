@@ -6,7 +6,7 @@ import { getTopAnime } from "@/hooks/getTopAnime";
 
 export default async function AnimeNews() {
   const data = await getTopAnime("upcoming");
-  const news = await getMixedAnimeNews(data);
+  const news = await getMixedAnimeNews(data.data);
   return (
     <Section className="bg-secondary-background">
       <Title>Anime News</Title>

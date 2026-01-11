@@ -2,7 +2,6 @@ import { getTopAnime } from "@/hooks/getTopAnime";
 
 import Title from "@/components/ui/title";
 
-import NewsAnimeSlider from "@/components/newsPage/newsAnimeSlider";
 import NewsFeed from "@/components/newsPage/newsFeed";
 
 export default async function Page() {

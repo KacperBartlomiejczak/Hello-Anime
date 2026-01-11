@@ -25,13 +25,13 @@ export interface Anime {
   studios: Studios[];
 }
 
-interface Genre {
+export interface Genre {
   mal_id: string;
   type: string;
   name: string;
   url: string;
 }
 
-interface Studios {
+export interface Studios {
   name: string;
 }

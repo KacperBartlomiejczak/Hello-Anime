@@ -1,5 +1,6 @@
 import { Character } from "@/types/character";
 import Image from "next/image";
+
 interface CharactersGridProps {
   characters: Character[];
 }

@@ -2,9 +2,10 @@
 
 import { motion } from "framer-motion";
 import Card from "@/components/ui/card";
+import { Anime } from "@/types/anime";
 
 interface AnimatedGridProps {
-  animeList: any[];
+  animeList: Anime[];
 }
 
 export default function AnimatedGrid({ animeList }: AnimatedGridProps) {

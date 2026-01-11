@@ -1,8 +1,7 @@
-import type { Metadata } from "next";
-import { poppins, inter } from "@/components/ui/font";
-import "./globals.css";
-import Navbar from "@/components/navbar/navbar";
 import { AuthProvider } from "@/components/auth/authProvider";
+import Navbar from "@/components/navbar/navbar";
+import { inter, poppins } from "@/components/ui/font";
+import "./globals.css";
 
 export default function RootLayout({
   children,

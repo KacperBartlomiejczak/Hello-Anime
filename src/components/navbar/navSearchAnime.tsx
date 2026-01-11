@@ -26,23 +26,25 @@ export default function NavSearchAnime({
 
   const debounceQuery = useDebounce(query, 500);
 
-  useEffect(() => {
-    const fetchAnime = async () => {
-      if (debounceQuery.length < 2) {
-        setResults([]);
-        return;
-      }
-      setIsLoading(true);
+  const handleFetchAnime = async () => {
+    if (debounceQuery.length < 2) {
+      setResults([]);
+      return;
+    }
+    setIsLoading(true);
+    try {
       const data = await searchAnime(debounceQuery);
-
-      if (data) {
-        setResults(data.data);
-      }
+      setResults(data.data || []);
+    } catch {
+      console.error("Error while fetching anime");
+    } finally {
       setIsLoading(false);
-    };
+    }
+  };
 
-    fetchAnime();
-  }, [debounceQuery]);
+  useEffect(() => {
+    handleFetchAnime();
+  }, [debounceQuery]); //eslint-disable-line
 
   useBlockScroll(isSearch);
 
@@ -68,7 +70,7 @@ export default function NavSearchAnime({
               animate={{ opacity: isSearch ? 1 : 0 }}
               exit={{ opacity: isSearch ? 1 : 0 }}
               className="absolute inset-0 bg-secondary-background  pointer-events-auto z-50"
-            ></motion.div>
+            />
             <motion.div
               initial={{ scale: 0, rotate: -180 }}
               animate={{ scale: 1, rotate: 0 }}
@@ -117,7 +119,7 @@ export default function NavSearchAnime({
                           fill
                           className="object-cover object-center rounded-xl"
                           sizes="100%"
-                        ></Image>
+                        />
                       </div>
                       <div>
                         <h4 className="text-white font-bold w-1/2">
