@@ -12,14 +12,60 @@ interface Genre {
 
 interface GenreListProps {
   genres: Genre[];
+  selectedGenreId?: string | null;
+  onGenreSelect?: (id: string | null) => void;
 }
 
-export default function GenreList({ genres }: GenreListProps) {
+export default function GenreList({
+  genres,
+  selectedGenreId,
+  onGenreSelect,
+}: GenreListProps) {
   const searchParams = useSearchParams();
-  const currentGenre = searchParams.get("genre");
+  const urlGenreId = searchParams.get("genre");
 
-  // Sortujemy gatunki alfabetycznie
+  // Use prop if provided (controlled mode), otherwise fall back to URL (uncontrolled)
+  const currentGenre =
+    selectedGenreId !== undefined ? selectedGenreId : urlGenreId;
+
+  // Sort genres alphabetically
   const sortedGenres = [...genres].sort((a, b) => a.name.localeCompare(b.name));
+
+  const ButtonOrLink = ({
+    href,
+    isActive,
+    onClick,
+    children,
+    className,
+  }: {
+    href: string;
+    isActive: boolean;
+    onClick?: () => void;
+    children: React.ReactNode;
+    className?: string;
+  }) => {
+    const baseClasses = cn(
+      "px-4 py-2 rounded-lg text-sm transition-all duration-300 border border-white/5 flex items-center gap-2 group cursor-pointer",
+      isActive
+        ? "bg-brand text-white shadow-lg shadow-brand/20 font-semibold"
+        : "bg-secondary-background text-gray-400 hover:bg-white/10 hover:text-white",
+      className
+    );
+
+    if (onGenreSelect && onClick) {
+      return (
+        <button onClick={onClick} className={baseClasses}>
+          {children}
+        </button>
+      );
+    }
+
+    return (
+      <Link href={href} className={baseClasses}>
+        {children}
+      </Link>
+    );
+  };
 
   return (
     <div className="flex flex-col gap-2">
@@ -27,41 +73,38 @@ export default function GenreList({ genres }: GenreListProps) {
         <span className="w-1 h-6 bg-brand rounded-full block"></span>
         Genres
       </h3>
-      
+
       <div className="flex flex-wrap gap-2">
-        <Link
+        <ButtonOrLink
           href="/top-anime"
-          className={cn(
-            "px-4 py-2 rounded-lg text-sm transition-all duration-300 border border-white/5",
-            !currentGenre
-              ? "bg-brand text-white shadow-lg shadow-brand/20 font-semibold"
-              : "bg-secondary-background text-gray-400 hover:bg-white/10 hover:text-white"
-          )}
+          isActive={!currentGenre}
+          onClick={() => onGenreSelect && onGenreSelect(null)}
+          className="justify-center"
         >
           All Genres
-        </Link>
+        </ButtonOrLink>
 
         {sortedGenres.map((genre) => (
-          <Link
+          <ButtonOrLink
             key={genre.mal_id}
             href={`/top-anime?genre=${genre.mal_id}`}
-            className={cn(
-              "px-4 py-2 rounded-lg text-sm transition-all duration-300 border border-white/5 flex items-center gap-2 group",
-              currentGenre === genre.mal_id.toString()
-                ? "bg-brand text-white shadow-lg shadow-brand/20 font-semibold"
-                : "bg-secondary-background text-gray-400 hover:bg-white/10 hover:text-white"
-            )}
+            isActive={currentGenre === genre.mal_id.toString()}
+            onClick={() =>
+              onGenreSelect && onGenreSelect(genre.mal_id.toString())
+            }
           >
             <span>{genre.name}</span>
-            <span 
+            <span
               className={cn(
                 "text-xs px-2 py-0.5 rounded-full bg-black/20",
-                currentGenre === genre.mal_id.toString() ? "text-white/80" : "text-gray-600 group-hover:text-gray-400"
+                currentGenre === genre.mal_id.toString()
+                  ? "text-white/80"
+                  : "text-gray-600 group-hover:text-gray-400"
               )}
             >
               {genre.count}
             </span>
-          </Link>
+          </ButtonOrLink>
         ))}
       </div>
     </div>

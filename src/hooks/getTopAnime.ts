@@ -21,6 +21,7 @@ export async function getTopAnime(
   }
 
   try {
+    
     const response = await jikanRateLimiter.schedule(() =>
       fetch(finalUrl, {
         next: { revalidate: 3600 },

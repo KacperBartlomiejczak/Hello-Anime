@@ -13,7 +13,7 @@ export default function AnimeTile({ news, className }: AnimeTileProps) {
       href={news.url}
       target="_blank"
       className={cn(
-        "flex flex-col w-full border-brand/20 border p-3 rounded-xl bg-background shadow-brand/10 shadow-sm hover:scale-[1.02] hover:border-brand/50 hover:shadow-brand/20 hover:shadow-md transition-all duration-300 group",
+        "flex flex-col w-[95%] border-brand/20 border p-3 rounded-xl bg-background shadow-brand/10 shadow-sm hover:scale-[1.02] hover:border-brand/50 hover:shadow-brand/20 hover:shadow-md transition-all duration-300 group",
         className
       )}
     >
