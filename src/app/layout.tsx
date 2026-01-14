@@ -12,10 +12,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.variable} ${poppins.variable} antialiased bg-background`}
+        className={`${inter.variable} ${poppins.variable} antialiased bg-background overflow-x-hidden`}
       >
         <AuthProvider>
-          <main className="w-screen  bg-background flex flex-col items-center justify-center  text-white relative">
+          <main className="w-full  bg-background flex flex-col items-center justify-center  text-white relative">
             <Navbar />
             <PageTransition>{children}</PageTransition>
           </main>

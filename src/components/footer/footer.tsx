@@ -2,7 +2,7 @@ import FooterList from "./footerList";
 import FooterHeading from "./footerHeading";
 export default function Footer() {
   return (
-    <footer className="relative w-screen bg-background">
+    <footer className="relative w-full bg-background">
       <div className="w-full flex">
         <div className="relative left-0 h-[20dvh] w-1/2 bg-secondary-background [clip-path:polygon(0_0,0%_100%,100%_100%)]"></div>
         <div className="relative right-0 h-[20dvh] w-1/2 bg-secondary-background [clip-path:polygon(100%_0,0%_100%,100%_100%)]"></div>

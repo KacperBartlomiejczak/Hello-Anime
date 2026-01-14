@@ -50,7 +50,7 @@ export default function Hero({ animes }: HeroProps) {
     return <HeroSkeleton />;
   }
   return (
-    <section className="relative w-screen h-screen md:h-screen">
+    <section className="relative w-full h-screen md:h-screen">
       <HeroImage anime={anime} />
 
       <HeroChevrons
@@ -58,7 +58,11 @@ export default function Hero({ animes }: HeroProps) {
         onRightSlide={slideRightAnimeHandler}
       />
 
-      <HeroDots currentIndex={currentIndex} onDot={dotHandler} animes={animes} />
+      <HeroDots
+        currentIndex={currentIndex}
+        onDot={dotHandler}
+        animes={animes}
+      />
     </section>
   );
 }

@@ -8,17 +8,11 @@ export const data = [
       "Airing Calender",
       "Contact Us",
     ],
-    href: [
-      "/",
-      "/categories",
-      "/#anime-news",
-      "/#anime-calender",
-      "/contact",
-    ],
+    href: ["/", "/categories", "/#anime-news", "/#anime-calender", "/contact"],
   },
   {
     heading: "Legal",
-    elements: ["Privacy Policy", "Terms of service"],
-    href: ["/privacy-policy", "terms-of-service"],
+    elements: ["Privacy Policy", "Terms of Service"],
+    href: ["/privacy-policy", "/terms-of-service"],
   },
 ];

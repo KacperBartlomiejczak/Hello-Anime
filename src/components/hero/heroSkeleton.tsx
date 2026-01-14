@@ -1,6 +1,6 @@
 export default function HeroSkeleton() {
   return (
-    <section className="relative w-screen h-screen md:h-screen">
+    <section className="relative w-full h-screen md:h-screen">
       <div className="absolute inset-0 w-full h-full">
         {/* Background Placeholder */}
         <div className="absolute inset-0 bg-secondary-background animate-shimmer" />

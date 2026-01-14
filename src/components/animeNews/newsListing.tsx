@@ -14,7 +14,7 @@ export default function NewsListing({ news }: NewsProps) {
   const listedNews = uniqueNews.slice(1);
 
   return (
-    <div className="grid grid-cols-1 gap-3 w-full lg:grid-cols-2 xl:grid-cols-1 lg:w-full xl:w-[30%] overflow-y-scroll h-[50vh]">
+    <div className="grid grid-cols-1 gap-3 w-full lg:grid-cols-2 xl:grid-cols-1 lg:w-full xl:w-[30%] overflow-y-scroll h-[50vh] xl:h-[60vh]">
       {listedNews.map((n) => (
         <AnimeTile key={n.mal_id} news={n} />
       ))}

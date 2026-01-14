@@ -14,7 +14,7 @@ import Footer from "@/components/footer/footer";
 export default function Home() {
   return (
     <>
-      <header className="w-screen  bg-background flex items-center justify-center text-white relative">
+      <header className="w-full  bg-background flex items-center justify-center text-white relative">
         <Suspense fallback={<HeroSkeleton />}>
           <HeroServer />
         </Suspense>

@@ -14,7 +14,7 @@ export default function NewsList({ news }: NewsProps) {
   return (
     <div
       className={cn(
-        "flex flex-col xl:flex-row gap-6 items-center justify-center w-full mt-4"
+        "flex flex-col xl:flex-row gap-6 items-start justify-center w-full mt-4"
       )}
     >
       <MainNews news={news[0]} />
