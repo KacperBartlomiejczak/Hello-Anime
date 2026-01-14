@@ -1,7 +1,15 @@
-import Link from "next/link";
+"use client";
+
 import { ChevronsUp } from "lucide-react";
 
 export default function FooterHeading() {
+  const scrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth",
+    });
+  };
+
   return (
     <div className="w-full flex flex-col items-center gap-2 md:items-start md:w-1/2">
       <h2 className="font-poppins font-bold  text-2xl text-center md:text-left">
@@ -14,9 +22,12 @@ export default function FooterHeading() {
         viewing in stunning HD quality, available anytime on your desktop or
         mobile devices.
       </p>
-      <Link href="/" className="p-2  bg-brand rounded-xl" scroll={true}>
+      <button
+        onClick={scrollToTop}
+        className="p-2 bg-brand rounded-xl cursor-pointer hover:bg-brand/80 transition-colors"
+      >
         <ChevronsUp />
-      </Link>
+      </button>
     </div>
   );
 }

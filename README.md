@@ -76,28 +76,7 @@ Follow these steps to get a local copy up and running.
 
 We welcome contributions from the community! Whether it's fixing a bug, adding a new feature, or improving documentation, your help is appreciated.
 
-### How to Contribute
-
-1.  **Fork the Project**: Click the "Fork" button at the top right of the repository page.
-2.  **Create your Feature Branch**:
-    ```bash
-    git checkout -b feature/AmazingFeature
-    ```
-3.  **Commit your Changes**:
-    ```bash
-    git commit -m 'Add some AmazingFeature'
-    ```
-4.  **Push to the Branch**:
-    ```bash
-    git push origin feature/AmazingFeature
-    ```
-5.  **Open a Pull Request**: Submit your changes for review.
-
-### Guidelines
-
-- Ensure your code follows the project's coding standards and linting rules.
-- Write clear and concise commit messages.
-- Test your changes before submitting.
+Please read our [**Contributing Guidelines**](CONTRIBUTING.md) for details on our code of conduct, and the process for submitting pull requests to us.
 
 ## 🔗 API Reference
 

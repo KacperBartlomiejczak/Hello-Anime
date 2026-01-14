@@ -11,7 +11,12 @@ export default function FooterList() {
             const link = section.href[index];
             return (
               <li key={el}>
-                <Link href={link} target="_blank" className="hover:text-brand transition-colors">{el}</Link>
+                <Link
+                  href={link}
+                  className="hover:text-brand transition-colors"
+                >
+                  {el}
+                </Link>
               </li>
             );
           })}

@@ -13,7 +13,7 @@ export const data = [
       "/categories",
       "/#anime-news",
       "/#anime-calender",
-      "/contact-us",
+      "/contact",
     ],
   },
   {
