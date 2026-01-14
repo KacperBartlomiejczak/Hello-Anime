@@ -46,7 +46,7 @@ export default function Hero({ animes }: HeroProps) {
   }
 
   return (
-    <section className="relative w-full h-screen md:h-screen group">
+    <section className="relative w-full h-dvh md:h-dvh group">
       <Swiper
         modules={[Autoplay, EffectFade]}
         effect="fade"
