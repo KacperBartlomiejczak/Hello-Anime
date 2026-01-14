@@ -4,11 +4,7 @@ export const dataLinks = [
     title: "Top Anime",
     href: "/top-anime",
   },
-  {
-    id: 2,
-    title: "Categories",
-    href: "/categories",
-  },
+
   {
     id: 3,
     title: "News",

@@ -1,14 +1,8 @@
 export const data = [
   {
     heading: "Sitemap",
-    elements: [
-      "Homepage",
-      "Categories",
-      "Anime News",
-      "Airing Calender",
-      "Contact Us",
-    ],
-    href: ["/", "/categories", "/#anime-news", "/#anime-calender", "/contact"],
+    elements: ["Homepage", "Anime News", "Airing Calender", "Contact Us"],
+    href: ["/", "/#anime-news", "/#anime-calender", "/contact"],
   },
   {
     heading: "Legal",
