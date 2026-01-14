@@ -1,11 +1,11 @@
 "use client";
 
 import React from "react";
-import { motion } from "framer-motion";
+import { motion, Variants } from "framer-motion";
 import { ChevronRight } from "lucide-react";
 
 export default function TermsOfService() {
-  const containerVariants = {
+  const containerVariants: Variants = {
     hidden: { opacity: 0 },
     visible: {
       opacity: 1,
@@ -15,7 +15,7 @@ export default function TermsOfService() {
     },
   };
 
-  const itemVariants = {
+  const itemVariants: Variants = {
     hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
@@ -40,10 +40,10 @@ export default function TermsOfService() {
           <h1 className="text-4xl md:text-5xl font-bold text-brand tracking-tight">
             Terms of Service
           </h1>
-          <p className="text-[var(--color-secondary)] text-lg">
+          <p className="text-secondary text-lg">
             Last Updated: January 14, 2026
           </p>
-          <div className="h-1 w-24 bg-[var(--color-secondary)] mx-auto rounded-full mt-4" />
+          <div className="h-1 w-24 bg-secondary mx-auto rounded-full mt-4" />
         </motion.div>
 
         {/* Introduction */}
@@ -194,9 +194,7 @@ export default function TermsOfService() {
           variants={itemVariants}
           className="bg-secondary-background p-6 rounded-2xl border border-secondary/20 mt-8"
         >
-          <h2 className="text-2xl font-bold mb-4 text-brand">
-            Contact Us
-          </h2>
+          <h2 className="text-2xl font-bold mb-4 text-brand">Contact Us</h2>
           <p className="mb-4 text-gray-300">
             If you have any questions about these Terms, please contact us at:
           </p>
