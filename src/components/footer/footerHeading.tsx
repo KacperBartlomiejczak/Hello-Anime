@@ -25,6 +25,7 @@ export default function FooterHeading() {
       <button
         onClick={scrollToTop}
         className="p-2 bg-brand rounded-xl cursor-pointer hover:bg-brand/80 transition-colors"
+        aria-label="Scroll to top"
       >
         <ChevronsUp />
       </button>

@@ -10,11 +10,17 @@ export default function HeroChevrons({
 }: HeroChevronsProps) {
   return (
     <>
-      <button className="absolute left-4 top-1/2 -translate-y-1/2 p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-full transition-all hidden md:block z-20">
+      <button
+        className="absolute left-4 top-1/2 -translate-y-1/2 p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-full transition-all hidden md:block z-20"
+        aria-label="Previous slide"
+      >
         <ChevronLeft size={48} onClick={onLeftSlide} />
       </button>
 
-      <button className="absolute right-4 top-1/2 -translate-y-1/2 p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-full transition-all hidden md:block z-20">
+      <button
+        className="absolute right-4 top-1/2 -translate-y-1/2 p-2 text-white/70 hover:text-white hover:bg-white/10 rounded-full transition-all hidden md:block z-20"
+        aria-label="Next slide"
+      >
         <ChevronRight size={48} onClick={onRightSlide} />
       </button>
     </>

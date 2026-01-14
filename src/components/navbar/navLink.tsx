@@ -7,6 +7,7 @@ interface navLinkProps {
   children: React.ReactNode;
   className?: string;
   onClick?: () => void;
+  ariaLabel?: string;
 }
 
 export default function NavLink({
@@ -15,6 +16,7 @@ export default function NavLink({
   children,
   className,
   onClick,
+  ariaLabel,
 }: navLinkProps) {
   return (
     <>
@@ -25,7 +27,7 @@ export default function NavLink({
             className
           )}
           onClick={onClick}
-          aria-label="Opening search bar to search your favourite anime"
+          aria-label={ariaLabel || "Navigation button"}
         >
           {children}
         </button>
@@ -36,7 +38,7 @@ export default function NavLink({
             "text-white hover:text-brand focus:text-brand transition-colors duration-300 cursor-pointer",
             className
           )}
-          aria-label="if you re logged its link to your profile when you re not its loggin"
+          aria-label={ariaLabel || "Navigation link"}
         >
           {children}
         </Link>

@@ -40,6 +40,7 @@ export default function NewsAnimeSlider({
             className={cn(
               "flex flex-col items-center gap-4 h-[300px] md:h-[400px] group ml-4"
             )}
+            aria-label={`Read news about ${anime.title}`}
           >
             <div className="relative w-[150px] md:w-[200px] h-2/3 rounded-xl flex justify-center items-center">
               {anime.mal_id === currentActive && (

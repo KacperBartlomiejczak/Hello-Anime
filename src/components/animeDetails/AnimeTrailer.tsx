@@ -38,6 +38,14 @@ export default function AnimeTrailer({
         <div
           className="relative w-full max-w-md aspect-video rounded-xl overflow-hidden cursor-pointer group shadow-lg shadow-brand/20 border border-white/10"
           onClick={() => setIsOpen(true)}
+          role="button"
+          tabIndex={0}
+          aria-label="Play trailer"
+          onKeyDown={(e) => {
+            if (e.key === "Enter" || e.key === " ") {
+              setIsOpen(true);
+            }
+          }}
         >
           <Image
             src={thumbnail}
@@ -72,6 +80,7 @@ export default function AnimeTrailer({
                 e.stopPropagation();
                 setIsOpen(false);
               }}
+              aria-label="Close trailer"
             >
               <X size={32} />
             </button>

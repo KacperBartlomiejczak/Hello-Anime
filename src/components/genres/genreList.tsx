@@ -54,7 +54,14 @@ export default function GenreList({
 
     if (onGenreSelect && onClick) {
       return (
-        <button onClick={onClick} className={baseClasses}>
+        <button
+          onClick={onClick}
+          className={baseClasses}
+          aria-pressed={isActive}
+          aria-label={
+            typeof children === "string" ? children : "Filter by genre"
+          }
+        >
           {children}
         </button>
       );

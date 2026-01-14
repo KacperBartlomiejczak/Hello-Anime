@@ -26,6 +26,10 @@ export default function AnimeDescription({ desc }: AnimeDescriptionProps) {
       <button
         onClick={() => setIsExpanded((prevState) => !prevState)}
         className="text-brand font-bold text-sm hover:underline mt-1 transition-all duration-300 cursor-pointer"
+        aria-expanded={isExpanded}
+        aria-label={
+          isExpanded ? "Show less description" : "Show more description"
+        }
       >
         {isExpanded ? "Show Less" : "Show More"}
       </button>

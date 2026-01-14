@@ -78,7 +78,11 @@ export default function NavSearchAnime({
               transition={{ delay: 0.1 }}
               className="absolute right-5 top-5 z-60"
             >
-              <button className="p-4 cursor-pointer" onClick={onClick}>
+              <button
+                className="p-4 cursor-pointer"
+                onClick={onClick}
+                aria-label="Close search"
+              >
                 <X size={32} />
               </button>
             </motion.div>

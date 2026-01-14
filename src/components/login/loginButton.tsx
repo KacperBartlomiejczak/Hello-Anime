@@ -4,12 +4,14 @@ interface LoginButtonProps {
   children: React.ReactNode;
   onLogin: () => void;
   classNames?: string;
+  ariaLabel?: string;
 }
 
 export default function LoginButton({
   children,
   onLogin,
   classNames,
+  ariaLabel,
 }: LoginButtonProps) {
   return (
     <button
@@ -18,6 +20,7 @@ export default function LoginButton({
         classNames
       )}
       onClick={onLogin}
+      aria-label={ariaLabel || "Login"}
     >
       {children}
     </button>

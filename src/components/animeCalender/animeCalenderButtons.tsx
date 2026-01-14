@@ -32,6 +32,8 @@ export default function AnimeCalenderButtons({
 
               isActive ? "text-white" : "text-gray-400 hover:text-gray-200"
             )}
+            aria-pressed={isActive}
+            aria-label={`Show anime airing on ${dayValue.label}`}
           >
             <span className="relative z-10">{dayValue.label}</span>
 
