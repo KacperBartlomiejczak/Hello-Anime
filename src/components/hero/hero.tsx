@@ -2,7 +2,13 @@
 
 import { Anime } from "@/types/anime";
 
-import { useEffect, useState } from "react";
+import { useState } from "react";
+import { Swiper, SwiperSlide } from "swiper/react";
+import { Autoplay, EffectFade } from "swiper/modules";
+import type { Swiper as SwiperType } from "swiper";
+
+import "swiper/css";
+import "swiper/css/effect-fade";
 
 import HeroDots from "./heroDots";
 import HeroChevrons from "./heroChevrons";
@@ -14,44 +20,53 @@ interface HeroProps {
 }
 
 export default function Hero({ animes }: HeroProps) {
+  const [swiperInstance, setSwiperInstance] = useState<SwiperType | null>(null);
   const [currentIndex, setCurrentIndex] = useState(0);
-  const anime = animes?.[currentIndex];
-
-  useEffect(() => {
-    if (!animes || animes.length === 0) return;
-    const timer = setInterval(() => {
-      setCurrentIndex((prevIndex) => {
-        return prevIndex === animes.length - 1 ? 0 : prevIndex + 1;
-      });
-    }, 10000);
-
-    return () => clearInterval(timer);
-  }, [currentIndex, animes]);
 
   const dotHandler = (index: number) => {
-    setCurrentIndex(index);
+    if (swiperInstance) {
+      swiperInstance.slideTo(index);
+    }
   };
 
   const slideRightAnimeHandler = () => {
-    if (!animes || animes.length === 0) return;
-    setCurrentIndex((prevIndex) =>
-      prevIndex === animes.length - 1 ? 0 : prevIndex + 1
-    );
+    if (swiperInstance) {
+      swiperInstance.slideNext();
+    }
   };
 
   const slideLeftAnimeHandler = () => {
-    if (!animes || animes.length === 0) return;
-    setCurrentIndex((prevIndex) =>
-      prevIndex === 0 ? animes.length - 1 : prevIndex + -1
-    );
+    if (swiperInstance) {
+      swiperInstance.slidePrev();
+    }
   };
 
   if (!animes || animes.length === 0) {
     return <HeroSkeleton />;
   }
+
   return (
-    <section className="relative w-full h-screen md:h-screen">
-      <HeroImage anime={anime} />
+    <section className="relative w-full h-screen md:h-screen group">
+      <Swiper
+        modules={[Autoplay, EffectFade]}
+        effect="fade"
+        spaceBetween={0}
+        slidesPerView={1}
+        loop={true}
+        autoplay={{
+          delay: 10000,
+          disableOnInteraction: false,
+        }}
+        onSwiper={(swiper) => setSwiperInstance(swiper)}
+        onSlideChange={(swiper) => setCurrentIndex(swiper.realIndex)}
+        className="w-full h-full"
+      >
+        {animes.map((anime) => (
+          <SwiperSlide key={anime.mal_id}>
+            <HeroImage anime={anime} />
+          </SwiperSlide>
+        ))}
+      </Swiper>
 
       <HeroChevrons
         onLeftSlide={slideLeftAnimeHandler}
