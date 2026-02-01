@@ -2,8 +2,9 @@
 
 import { AnimatePresence, motion } from "framer-motion";
 import { useState, useEffect } from "react";
-import { X } from "lucide-react";
+import { X, TrendingUp } from "lucide-react";
 import { searchAnime } from "@/hooks/searchAnime";
+import { getTopAnime } from "@/hooks/getTopAnime";
 import { useDebounce } from "@/hooks/useDebounce";
 import { Anime } from "@/types/anime";
 import Image from "next/image";
@@ -23,8 +24,47 @@ export default function NavSearchAnime({
   const [query, setQuery] = useState("");
   const [results, setResults] = useState<Anime[]>([]);
   const [isLoading, setIsLoading] = useState(false);
+  const [trendingAnime, setTrendingAnime] = useState<Anime[]>([]);
+  const [showTrending, setShowTrending] = useState(false);
+  const [loadingTrending, setLoadingTrending] = useState(false);
 
   const debounceQuery = useDebounce(query, 500);
+
+  // Fetch trending anime when search opens
+  useEffect(() => {
+    const fetchTrending = async () => {
+      if (isSearch && trendingAnime.length === 0) {
+        setLoadingTrending(true);
+        try {
+          const data = await getTopAnime("airing", 1, 10);
+          setTrendingAnime(data.data || []);
+        } catch (error) {
+          console.error("Error fetching trending anime:", error);
+        } finally {
+          setLoadingTrending(false);
+        }
+      }
+    };
+    fetchTrending();
+  }, [isSearch]); //eslint-disable-line
+
+  // Delay showing trending when query is empty
+  useEffect(() => {
+    if (query.length === 0) {
+      setLoadingTrending(true);
+      const timer = setTimeout(() => {
+        setShowTrending(true);
+        setLoadingTrending(false);
+      }, 800);
+      return () => {
+        clearTimeout(timer);
+        setLoadingTrending(false);
+      };
+    } else {
+      setShowTrending(false);
+      setLoadingTrending(false);
+    }
+  }, [query]);
 
   const handleFetchAnime = async () => {
     if (debounceQuery.length < 2) {
@@ -88,8 +128,8 @@ export default function NavSearchAnime({
             </motion.div>
 
             <motion.div
-              initial={{ y: 0 }}
-              animate={{ y: isFocused || query !== "" ? 50 : 200 }}
+              initial={{ y: 50 }}
+              animate={{ y: 50 }}
               transition={{ type: "spring", stiffness: 300, damping: 30 }}
               className="flex flex-col h-full z-60 items-center "
             >
@@ -102,45 +142,118 @@ export default function NavSearchAnime({
                 value={query}
                 onChange={(e) => setQuery(e.target.value)}
               />
+              {/* Loading for search results */}
               {isLoading && (
                 <div className="p-4">
                   <p className="text-white text-center">Searching..</p>
                 </div>
               )}
+              {/* Loading for trending anime */}
+              {loadingTrending && !isLoading && (
+                <div className="p-4">
+                  <p className="text-white text-center">
+                    Loading trending anime..
+                  </p>
+                </div>
+              )}
+              {/* Search Results */}
               {!isLoading && results.length > 0 && (
-                <div className="grid grid-cols-1 md:grid-cols-2 h-2/3 gap-4 p-2">
-                  {results.map((anime) => (
-                    <Link
-                      key={anime.mal_id}
-                      href={`/anime/${anime.mal_id}`}
-                      className="flex gap-4 p-2 hover:bg-background/30 cursor-pointer transition-all"
-                      onClick={onCloseNav}
-                    >
-                      <div className="relative w-16 h-24 shrink-0">
-                        <Image
-                          src={anime.images.webp.large_image_url}
-                          alt={anime.title}
-                          fill
-                          unoptimized
-                          className="object-cover object-center rounded-xl"
-                          sizes="100%"
-                        />
-                      </div>
-                      <div>
-                        <h4 className="text-white font-bold w-1/2">
-                          {anime.title}
-                        </h4>
-                        <p className="text-gray-400 text-sm">
-                          {anime.year} • {anime.type}
-                        </p>
-                      </div>
-                    </Link>
-                  ))}
+                <div className="w-full max-w-4xl mt-8 px-4">
+                  <div className="flex items-center gap-2 mb-4">
+                    <h3 className="text-xl font-bold text-white font-poppins">
+                      Results for <span className="text-brand">"{query}"</span>
+                    </h3>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[60vh] overflow-y-auto">
+                    {results.map((anime) => (
+                      <Link
+                        key={anime.mal_id}
+                        href={`/anime/${anime.mal_id}`}
+                        className="flex gap-4 p-3 bg-background/20 hover:bg-background/40 cursor-pointer transition-all rounded-xl border border-white/5"
+                        onClick={onCloseNav}
+                      >
+                        <div className="relative w-20 h-28 shrink-0">
+                          <Image
+                            src={anime.images.webp.large_image_url}
+                            alt={anime.title}
+                            fill
+                            unoptimized
+                            className="object-cover object-center rounded-lg"
+                            sizes="100px"
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h4 className="text-white font-bold text-base line-clamp-2 mb-1">
+                            {anime.title}
+                          </h4>
+                          <p className="text-gray-400 text-sm mb-2">
+                            {anime.year} • {anime.type}
+                          </p>
+                          <div className="flex items-center gap-2">
+                            <span className="text-brand text-sm font-semibold">
+                              ⭐ {anime.score || "N/A"}
+                            </span>
+                            <span className="text-gray-500 text-xs">
+                              {anime.status}
+                            </span>
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               )}
               {!isLoading && query.length > 2 && results.length === 0 && (
                 <div className="p-4">
                   <p>There is no anime in that type</p>
+                </div>
+              )}
+              {/* Show trending when no query - after 2 second delay */}
+              {!isLoading && showTrending && trendingAnime.length > 0 && (
+                <div className="w-full max-w-4xl mt-8 px-4">
+                  <div className="flex items-center gap-2 mb-4">
+                    <TrendingUp className="text-brand" size={24} />
+                    <h3 className="text-xl font-bold text-white font-poppins">
+                      Currently Trending
+                    </h3>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4 max-h-[60vh] overflow-y-auto">
+                    {trendingAnime.map((anime) => (
+                      <Link
+                        key={anime.mal_id}
+                        href={`/anime/${anime.mal_id}`}
+                        className="flex gap-4 p-3 bg-background/20 hover:bg-background/40 cursor-pointer transition-all rounded-xl border border-white/5"
+                        onClick={onCloseNav}
+                      >
+                        <div className="relative w-20 h-28 shrink-0">
+                          <Image
+                            src={anime.images.webp.large_image_url}
+                            alt={anime.title}
+                            fill
+                            unoptimized
+                            className="object-cover object-center rounded-lg"
+                            sizes="100px"
+                          />
+                        </div>
+                        <div className="flex-1 min-w-0">
+                          <h4 className="text-white font-bold text-base line-clamp-2 mb-1">
+                            {anime.title}
+                          </h4>
+                          <p className="text-gray-400 text-sm mb-2">
+                            {anime.year} • {anime.type}
+                          </p>
+                          <div className="flex items-center gap-2">
+                            <span className="text-brand text-sm font-semibold">
+                              ⭐ {anime.score || "N/A"}
+                            </span>
+                            <span className="text-gray-500 text-xs">
+                              {anime.status}
+                            </span>
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
                 </div>
               )}
             </motion.div>

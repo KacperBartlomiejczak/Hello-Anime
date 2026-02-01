@@ -1,27 +1,29 @@
-import { jikanRateLimiter } from "@/lib/jikanRateLimiter";
-
 export async function getGenres() {
   const url = "https://api.jikan.moe/v4/genres/anime";
 
   try {
-    // Fetch sequentially to respect rate limit
-    const genresRes = await jikanRateLimiter.schedule(() =>
+    // Genres endpoint has separate rate limits and is heavily cached (24h)
+    // Safe to fetch in parallel without rate limiter
+    const [genresRes, demographicsRes, themesRes] = await Promise.all([
       fetch(`${url}?filter=genres`, { next: { revalidate: 86400 } }),
-    );
-    const demographicsRes = await jikanRateLimiter.schedule(() =>
       fetch(`${url}?filter=demographics`, { next: { revalidate: 86400 } }),
-    );
-    const themesRes = await jikanRateLimiter.schedule(() =>
       fetch(`${url}?filter=themes`, { next: { revalidate: 86400 } }),
-    );
+    ]);
 
     if (!genresRes.ok || !demographicsRes.ok || !themesRes.ok) {
+      console.error("Genres fetch failed:", {
+        genres: genresRes.status,
+        demographics: demographicsRes.status,
+        themes: themesRes.status,
+      });
       throw new Error(`Error fetching genres`);
     }
 
-    const genresData = await genresRes.json();
-    const demographicsData = await demographicsRes.json();
-    const themesData = await themesRes.json();
+    const [genresData, demographicsData, themesData] = await Promise.all([
+      genresRes.json(),
+      demographicsRes.json(),
+      themesRes.json(),
+    ]);
 
     // Combine all unique genres
     const allGenres = [

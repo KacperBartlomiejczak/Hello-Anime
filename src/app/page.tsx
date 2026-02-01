@@ -2,29 +2,30 @@ export const dynamic = "force-dynamic";
 
 import AnimeNews from "@/components/animeNews/animeNews";
 import CardSliderServer from "@/components/cardSlider/cardSliderServer";
-import CardSliderSkeleton from "@/components/cardSlider/cardSliderSkieleton";
 import HeroServer from "@/components/hero/heroServer";
-import { Suspense } from "react";
-
-import HeroSkeleton from "@/components/hero/heroSkeleton";
-
 import AnimeCalender from "@/components/animeCalender/animeCalender";
 import Footer from "@/components/footer/footer";
+import HomeLoading from "@/components/home/HomeLoading";
+import { Suspense } from "react";
 
-export default function Home() {
+async function HomeContent() {
   return (
     <>
       <header className="w-full  bg-background flex items-center justify-center text-white relative">
-        <Suspense fallback={<HeroSkeleton />}>
-          <HeroServer />
-        </Suspense>
+        <HeroServer />
       </header>
-      <Suspense fallback={<CardSliderSkeleton />}>
-        <CardSliderServer />
-      </Suspense>
+      <CardSliderServer />
       <AnimeNews />
       <AnimeCalender />
       <Footer />
     </>
+  );
+}
+
+export default function Home() {
+  return (
+    <Suspense fallback={<HomeLoading />}>
+      <HomeContent />
+    </Suspense>
   );
 }

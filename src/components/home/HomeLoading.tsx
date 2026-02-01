@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useState } from "react";
 
-export default function Loading() {
+export default function HomeLoading() {
   const [progress, setProgress] = useState(0);
 
   useEffect(() => {
@@ -16,7 +16,6 @@ export default function Loading() {
         }
         // Fast initially, then slows down
         const increment = prev < 50 ? 5 : prev < 80 ? 2 : 0.5;
-        // Ensure we don't exceed 99 with the increment
         return Math.min(prev + increment, 99);
       });
     }, 100);
@@ -55,10 +54,10 @@ export default function Loading() {
             delay: 0.2,
           }}
         >
-          Your anime is loading...
+          Loading your anime...
         </motion.h2>
 
-        <div className="h-2 w-full overflow-hidden rounded-full bg-secondary-background">
+        <div className="h-2 w-64 overflow-hidden rounded-full bg-secondary-background">
           <motion.div
             className="h-full bg-brand"
             initial={{ width: "0%" }}
