@@ -18,11 +18,15 @@ export default async function Page({ searchParams }: PageProps) {
 
   const { data, pagination } = animeData;
 
+  // Debug logging
+  console.log("Top Anime Page - Data length:", data?.length || 0);
+  console.log("Top Anime Page - Has pagination:", !!pagination);
+
   return (
     <main className="w-full mt-30 min-h-screen">
       <AnimeListContainer
-        initialAnimeList={data}
-        genres={genres}
+        initialAnimeList={data || []}
+        genres={genres || []}
         pagination={pagination || { last_visible_page: 1 }}
         currentPage={currentPage}
         currentGenreId={genreId}
