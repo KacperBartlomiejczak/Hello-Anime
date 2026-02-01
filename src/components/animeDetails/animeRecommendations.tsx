@@ -50,6 +50,7 @@ export default function RecommendationsSection({
                 src={rec.entry.images.webp.large_image_url}
                 alt={rec.entry.title}
                 fill
+                unoptimized
                 className="object-cover object-center transition-transform duration-500 group-hover:scale-110"
                 sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, (max-width: 1024px) 25vw, 20vw"
               />

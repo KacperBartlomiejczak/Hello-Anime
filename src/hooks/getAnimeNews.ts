@@ -61,7 +61,7 @@ export async function getAnimeNews(id: string | number) {
     const response = await jikanRateLimiter.schedule(() =>
       fetch(`${baseUrl}/${id}/news`, {
         next: { revalidate: 3600 },
-      })
+      }),
     );
     if (response.status === 429) {
       console.warn("⚠️ Limit API osiągnięty! Używam danych testowych.");
@@ -70,7 +70,7 @@ export async function getAnimeNews(id: string | number) {
 
     if (!response.ok) {
       throw new Error(
-        `Error just happend and couldnt get anime news ${response.status}`
+        `Error just happend and couldnt get anime news ${response.status}`,
       );
     }
 
@@ -95,18 +95,20 @@ export async function getMixedAnimeNews(data: Anime[]) {
 
     const top10 = topAnime.slice(0, 10);
 
-    const newsPromises = top10.map((anime: Anime) =>
-      getAnimeNews(anime.mal_id)
-    );
-    const newsResults = await Promise.all(newsPromises);
+    // Fetch news sequentially to respect rate limit (3 requests/second)
+    const newsResults = [];
+    for (const anime of top10) {
+      const news = await getAnimeNews(anime.mal_id);
+      newsResults.push(news);
+    }
 
     const allNews = newsResults.flatMap((news) =>
-      news && news.data ? news.data : []
+      news && news.data ? news.data : [],
     );
 
     const sortedNews = allNews.sort(
       (a: News, b: News) =>
-        new Date(b.date).getTime() - new Date(a.date).getTime()
+        new Date(b.date).getTime() - new Date(a.date).getTime(),
     );
 
     return sortedNews.slice(0, 12);

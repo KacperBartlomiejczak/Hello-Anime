@@ -1,3 +1,5 @@
+import { jikanRateLimiter } from "@/lib/jikanRateLimiter";
+
 export async function searchAnime(query: string) {
   const baseUrl = "https://api.jikan.moe/v4";
   try {
@@ -7,8 +9,8 @@ export async function searchAnime(query: string) {
       sfw: "false",
     });
 
-    const response = await fetch(
-      `${baseUrl}/anime?${params.toString()}&type=tv`
+    const response = await jikanRateLimiter.schedule(() =>
+      fetch(`${baseUrl}/anime?${params.toString()}&type=tv`),
     );
 
     if (!response.ok) {

@@ -21,6 +21,7 @@ export default async function ProfilePage() {
             src={session.user.image || "/placeholder-avatar.jpg"}
             alt={session.user.name || "User Avatar"}
             fill
+            unoptimized
             className="object-cover"
             priority
           />

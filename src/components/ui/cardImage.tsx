@@ -9,6 +9,7 @@ export default function CardImage({ images, title, score }: Anime) {
         src={images.webp.large_image_url}
         alt={title}
         fill
+        unoptimized
         className="object-cover object-center transition-transform duration-500 group-hover:scale-110 rounded-xl"
         sizes="100%"
       />

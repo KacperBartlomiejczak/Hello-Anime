@@ -51,6 +51,7 @@ export default function AnimeTrailer({
             src={thumbnail}
             alt="Trailer Thumbnail"
             fill
+            unoptimized
             className="object-cover transition-transform duration-500 group-hover:scale-105"
           />
           <div className="absolute inset-0 bg-black/30 group-hover:bg-black/20 transition-colors flex items-center justify-center">

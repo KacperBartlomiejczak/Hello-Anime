@@ -24,6 +24,7 @@ export default function HeroImage({ anime }: HeroImageProps) {
           alt={anime.title}
           className="object-cover object-center "
           fill
+          unoptimized
           priority
           sizes="100vw"
         />

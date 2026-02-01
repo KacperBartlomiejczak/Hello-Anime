@@ -121,6 +121,7 @@ export default function NavSearchAnime({
                           src={anime.images.webp.large_image_url}
                           alt={anime.title}
                           fill
+                          unoptimized
                           className="object-cover object-center rounded-xl"
                           sizes="100%"
                         />

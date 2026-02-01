@@ -38,7 +38,7 @@ export default function NewsAnimeSlider({
           <button
             onClick={() => onChangeNews(index)}
             className={cn(
-              "flex flex-col items-center gap-4 h-[300px] md:h-[400px] group ml-4"
+              "flex flex-col items-center gap-4 h-[300px] md:h-[400px] group ml-4",
             )}
             aria-label={`Read news about ${anime.title}`}
           >
@@ -67,6 +67,7 @@ export default function NewsAnimeSlider({
                   src={anime.images.webp.image_url}
                   alt={anime.title}
                   fill
+                  unoptimized
                   className="object-cover object-center"
                 />
               </motion.div>

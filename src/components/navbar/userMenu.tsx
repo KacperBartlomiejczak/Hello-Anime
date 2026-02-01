@@ -32,6 +32,7 @@ export default function UserMenu() {
           src={session.user?.image || "/placeholder-avatar.jpg"}
           alt={session.user?.name || "User"}
           fill
+          unoptimized
           className="object-cover"
         />
       </button>

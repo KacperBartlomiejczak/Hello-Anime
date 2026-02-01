@@ -26,6 +26,7 @@ export default function CharactersGrid({ characters }: CharactersGridProps) {
                 src={item.character.images.jpg.image_url}
                 alt={item.character.name}
                 fill
+                unoptimized
                 className="object-cover group-hover:scale-110 transition-transform duration-500 ease-out"
                 sizes="(max-width: 768px) 150px, 200px"
               />

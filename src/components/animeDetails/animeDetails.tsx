@@ -16,6 +16,7 @@ export default function AnimeDetailsCard({ anime }: AnimeDetailsCardProps) {
               src={anime.images.webp.large_image_url}
               alt={anime.title}
               fill
+              unoptimized
               className="object-cover"
               sizes="(max-width: 768px) 100vw, 350px"
               priority

@@ -1,14 +1,17 @@
 import { Character } from "@/types/character";
+import { jikanRateLimiter } from "@/lib/jikanRateLimiter";
 
 export async function getAnimeCharacters(id: string) {
   const url = "https://api.jikan.moe/v4";
 
   try {
-    const response = await fetch(`${url}/anime/${id}/characters`);
+    const response = await jikanRateLimiter.schedule(() =>
+      fetch(`${url}/anime/${id}/characters`),
+    );
 
     if (!response.ok) {
       throw new Error(
-        `There was a problem to connecting with API ${response.status}`
+        `There was a problem to connecting with API ${response.status}`,
       );
     }
     const data = await response.json();

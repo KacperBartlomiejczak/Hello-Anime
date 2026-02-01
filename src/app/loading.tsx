@@ -39,6 +39,7 @@ export default function Loading() {
           src="/placeholder-avatar.jpg"
           alt="Loading Avatar"
           fill
+          unoptimized
           className="object-cover"
           priority
         />
