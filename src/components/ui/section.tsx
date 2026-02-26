@@ -7,11 +7,11 @@ interface SectionProps {
 
 const Section = forwardRef<HTMLElement, SectionProps>(function Section(
   { className, children },
-  ref
+  ref,
 ) {
   return (
-    <section className={cn("bg-background p-4 w-full", className)} ref={ref}>
-      <div className="relative container gap-4 mx-auto flex flex-col p-4">
+    <section className={cn("bg-background p-4 w-full flex flex-col", className)} ref={ref}>
+      <div className="relative container gap-4 mx-auto flex flex-col p-4 flex-1 min-h-0">
         {children}
       </div>
     </section>

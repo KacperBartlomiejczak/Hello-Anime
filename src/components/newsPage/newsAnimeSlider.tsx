@@ -17,7 +17,7 @@ export default function NewsAnimeSlider({
   onChangeNews,
   currentActive,
 }: NewsAnimeSliderProps) {
-  const classesHeading = `px-5 text-center w-[150px] text-xs md:text-sm lg:text-base md:w-[200px] lg:w-[250px] transition-colors duration-30`;
+  const classesHeading = `px-5 text-center text-xs md:text-sm lg:text-base md:text-sm lg:text-base  transition-colors duration-30 line-clamp-2`;
 
   return (
     <Swiper
@@ -25,24 +25,25 @@ export default function NewsAnimeSlider({
       freeMode={true}
       grabCursor={true}
       spaceBetween={10}
-      slidesPerView={1.8}
+      slidesPerView={2}
+      slidesOffsetBefore={16}
+      slidesOffsetAfter={16}
       breakpoints={{
-        640: { spaceBetween: 10, slidesPerView: 4 },
-        1020: { spaceBetween: 30, slidesPerView: 4.5 },
-        1440: { spaceBetween: 50, slidesPerView: 7 },
+        640: { spaceBetween: 10, slidesPerView: 3 },
+        1020: { spaceBetween: 30, slidesPerView: 4 },
+        1440: { spaceBetween: 50, slidesPerView: 6 },
       }}
-      className="ml-2"
     >
       {animes.map((anime, index) => (
         <SwiperSlide key={anime.mal_id} className="mt-10">
           <button
             onClick={() => onChangeNews(index)}
             className={cn(
-              "flex flex-col items-center gap-4 h-[300px] md:h-[400px] group ml-4",
+              "flex flex-col items-center gap-4 h-[300px] md:h-[400px] group w-full max-w-[150px] md:max-w-[200px] mx-auto",
             )}
             aria-label={`Read news about ${anime.title}`}
           >
-            <div className="relative w-[150px] md:w-[200px] h-2/3 rounded-xl flex justify-center items-center">
+            <div className="relative w-full h-2/3 rounded-xl flex justify-center items-center">
               {anime.mal_id === currentActive && (
                 <motion.div
                   layoutId="active-glow"

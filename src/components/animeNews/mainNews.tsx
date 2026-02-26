@@ -13,11 +13,11 @@ export default function MainNews({ news: mainNews, className }: MainNewsProps) {
   return (
     <div
       className={cn(
-        "group flex flex-col w-full gap-3 items-start justify-start xl:w-[70%]",
+        "group flex flex-col w-full gap-3 items-start justify-start xl:w-[70%] p-4 mb-5",
         className,
       )}
     >
-      <div className="relative w-full aspect-video md:aspect-21/9 xl:aspect-video rounded-2xl overflow-hidden shadow-lg shadow-black/20">
+      <div className="relative w-full aspect-video md:aspect-21/9 flex-1 min-h-[400px] rounded-2xl overflow-hidden shadow-lg shadow-black/20">
         <Image
           src={mainNews.images.jpg.image_url}
           alt={mainNews.title}
@@ -30,7 +30,7 @@ export default function MainNews({ news: mainNews, className }: MainNewsProps) {
         <div className="absolute inset-0 bg-linear-to-t from-black/80 via-black/20 to-transparent opacity-60 group-hover:opacity-40 transition-opacity" />
 
         <div className="absolute bottom-0 left-0 p-4 md:p-6 w-full flex flex-col gap-2">
-          <div className="flex flex-row justify-between w-full items-center text-white/80 text-xs md:text-sm font-medium">
+          <div className="flex flex-row justify-between w-fzull items-center text-white/80 text-xs md:text-sm font-medium">
             <span className="bg-brand/90 px-2 py-0.5 rounded text-white shadow-sm backdrop-blur-sm">
               Featured
             </span>

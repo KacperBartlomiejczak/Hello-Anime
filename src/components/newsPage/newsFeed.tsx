@@ -20,9 +20,36 @@ export default function NewsFeed({ animes, preloadedNews }: NewsFeedProps) {
   const selectedAnime = animes.find((anime) => anime.mal_id === currentActive);
   const news = preloadedNews[currentActive] || [];
 
+  if (news.length === 0) {
+    return (
+      <div className="w-full flex flex-col gap-8">
+        <div className="w-full max-w-full items-center justify-center gap-4">
+          <NewsAnimeSlider
+            animes={animes}
+            onChangeNews={handleNewsChange}
+            currentActive={currentActive}
+          />
+        </div>
+
+        <div className="flex flex-col gap-6 px-4 md:px-8 lg:px-12">
+          <div className="flex items-center gap-2">
+            <h3 className="font-poppins font-bold text-2xl">
+              News for{" "}
+              <span className="text-brand">{selectedAnime?.title}</span>
+            </h3>
+          </div>
+
+          <div className="w-full min-h-[300px]">
+            <p>There is no news for this anime</p>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
   return (
     <div className="w-full flex flex-col gap-8">
-      <div className="w-full flex items-center justify-center gap-4">
+      <div className="w-full max-h-1/2 min-h-0 max-w-full ">
         <NewsAnimeSlider
           animes={animes}
           onChangeNews={handleNewsChange}
