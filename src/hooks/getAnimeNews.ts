@@ -2,6 +2,8 @@ import { jikanRateLimiter } from "@/lib/jikanRateLimiter";
 import { Anime } from "@/types/anime";
 import { News } from "@/types/news";
 
+import { unstable_cache } from "next/cache";
+
 export interface AnimeNewsItem {
   mal_id: number;
   url: string;
@@ -23,7 +25,7 @@ const FAKE_NEWS_RESPONSE: { data: AnimeNewsItem[] } = {
       mal_id: 1,
       url: "https://myanimelist.net/news/1",
       title: "To jest testowy news nr 1",
-      date: "2025-10-15T10:00:00+00:00", // Data w przyszłości, żeby był pierwszy
+      date: "2023-10-10T12:00:00+00:00", 
       author_username: "Bartek",
       images: {
         jpg: {
@@ -54,7 +56,7 @@ const FAKE_NEWS_RESPONSE: { data: AnimeNewsItem[] } = {
   ],
 };
 
-export async function getAnimeNews(id: string | number) {
+export const fetchAnimeNews = async (id: string | number) => {
   const baseUrl = "https://api.jikan.moe/v4/anime";
 
   try {
@@ -65,7 +67,7 @@ export async function getAnimeNews(id: string | number) {
     );
     if (response.status === 429) {
       console.warn("⚠️ Limit API osiągnięty! Używam danych testowych.");
-      return FAKE_NEWS_RESPONSE;
+      return { data: [] };
     }
 
     if (!response.ok) {
@@ -76,16 +78,20 @@ export async function getAnimeNews(id: string | number) {
 
     const data = await response.json();
 
-    if (!data.data || data.data.length === 0) {
-      return FAKE_NEWS_RESPONSE;
-    }
+    
 
     return data;
   } catch (err) {
     console.log("Couldnt get anime news", err);
     return { data: [] };
   }
-}
+};
+
+export const getAnimeNews = unstable_cache(
+  async (id: string | number) => fetchAnimeNews(id),
+  ["anime-news-cache-token"],
+  { revalidate: 3600, tags: ["anime-news"] },
+);
 
 export async function getMixedAnimeNews(data: Anime[]) {
   try {
@@ -93,11 +99,11 @@ export async function getMixedAnimeNews(data: Anime[]) {
 
     if (!topAnime || !topAnime.length) return [];
 
-    const top10 = topAnime.slice(0, 10);
+    const top5 = topAnime.slice(0, 7);
 
     // Fetch news sequentially to respect rate limit (3 requests/second)
     const newsResults = [];
-    for (const anime of top10) {
+    for (const anime of top5) {
       const news = await getAnimeNews(anime.mal_id);
       newsResults.push(news);
     }
@@ -111,7 +117,7 @@ export async function getMixedAnimeNews(data: Anime[]) {
         new Date(b.date).getTime() - new Date(a.date).getTime(),
     );
 
-    return sortedNews.slice(0, 12);
+    return sortedNews;
   } catch (err) {
     console.error("Error with aggragate news", err);
     return [];
