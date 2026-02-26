@@ -10,6 +10,7 @@ import NewsListSkeleton from "@/components/animeNews/newsListSkeleton";
 
 import { Suspense } from "react";
 import HeroSkeleton from "@/components/hero/heroSkeleton";
+import AnimeCalenderServer from "@/components/animeCalender/animeCalenderServer";
 
 async function HomeContent() {
   return (
@@ -23,7 +24,7 @@ async function HomeContent() {
       <Suspense fallback={<NewsListSkeleton />}>
         <AnimeNews />
       </Suspense>
-      <AnimeCalender />
+      <AnimeCalenderServer />
       <Footer />
     </>
   );

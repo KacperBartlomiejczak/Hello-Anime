@@ -1,16 +1,17 @@
 "use client";
 
 import { Day, daysOptions } from "@/hooks/getAnimeAiring";
-import { useEffect, useState } from "react";
+import { useRef, useEffect, useState } from "react";
 import { Anime } from "@/types/anime";
 import AnimeCalenderButtons from "./animeCalenderButtons";
 import CardSlider from "../cardSlider/cardSlider";
 import { getAnimeAiringAction } from "@/actions/getAnimeAiringAction";
 
-export default function AnimeCalender() {
+export default function AnimeCalender({ data }: { data: Anime[] }) {
   const [day, setDay] = useState<Day>("monday");
-  const [animeAiring, setAnimeAiring] = useState<Anime[]>([]);
-  const [loading, setLoading] = useState(true);
+  const [animeAiring, setAnimeAiring] = useState<Anime[]>(data);
+  const [loading, setLoading] = useState(false);
+  const isInitialMount = useRef(true);
 
   const changeDayHandler = (dayChanger: Day) => {
     if (day === dayChanger) return;
@@ -31,6 +32,10 @@ export default function AnimeCalender() {
   };
 
   useEffect(() => {
+    if (isInitialMount.current === true) {
+      isInitialMount.current = false;
+      return;
+    }
     handleFetchAiringAnime();
   }, [day]); //eslint-disable-line
 
