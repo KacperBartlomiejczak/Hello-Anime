@@ -1,3 +1,5 @@
+export const revalidate = 3600
+
 import { getTopAnime } from "@/hooks/getTopAnime";
 import { getAnimeNews } from "@/hooks/getAnimeNews";
 import { Anime } from "@/types/anime";

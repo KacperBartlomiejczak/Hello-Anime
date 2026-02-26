@@ -1,4 +1,4 @@
-export const revalidate = 3600;
+export const dynamic = "force-dynamic";
 
 import AnimeNews from "@/components/animeNews/animeNews";
 import CardSliderServer from "@/components/cardSlider/cardSliderServer";

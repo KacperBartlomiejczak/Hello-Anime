@@ -1,3 +1,5 @@
+export const dynamic = "force-dynamic";
+
 import AnimeListContainer from "@/components/animeList/AnimeListContainer";
 import { getGenres } from "@/hooks/getGenres";
 import { getTopAnime } from "@/hooks/getTopAnime";
