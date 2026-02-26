@@ -7,10 +7,10 @@ export async function getGenres() {
     fetch(`${url}?filter=genres`, { next: { revalidate: 86400 } }),
   );
   const demographicsRes = await jikanRateLimiter.schedule(() =>
-    fetch(`${url}?filter=genres`, { next: { revalidate: 86400 } }),
+    fetch(`${url}?filter=demographics`, { next: { revalidate: 86400 } }),
   );
   const themesRes = await jikanRateLimiter.schedule(() =>
-    fetch(`${url}?filter=genres`, { next: { revalidate: 86400 } }),
+    fetch(`${url}?filter=themes`, { next: { revalidate: 86400 } }),
   );
 
   try {
