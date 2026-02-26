@@ -1,4 +1,4 @@
-export const revalidated = 3600;
+export const revalidate = 3600;
 
 import AnimeNews from "@/components/animeNews/animeNews";
 import CardSliderServer from "@/components/cardSlider/cardSliderServer";

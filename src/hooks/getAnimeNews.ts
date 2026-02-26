@@ -25,7 +25,7 @@ const FAKE_NEWS_RESPONSE: { data: AnimeNewsItem[] } = {
       mal_id: 1,
       url: "https://myanimelist.net/news/1",
       title: "To jest testowy news nr 1",
-      date: "2023-10-10T12:00:00+00:00", 
+      date: "2023-10-10T12:00:00+00:00",
       author_username: "Bartek",
       images: {
         jpg: {
@@ -78,8 +78,6 @@ export const fetchAnimeNews = async (id: string | number) => {
 
     const data = await response.json();
 
-    
-
     return data;
   } catch (err) {
     console.log("Couldnt get anime news", err);
@@ -99,11 +97,11 @@ export async function getMixedAnimeNews(data: Anime[]) {
 
     if (!topAnime || !topAnime.length) return [];
 
-    const top5 = topAnime.slice(0, 7);
+    const top7 = topAnime.slice(0, 7);
 
     // Fetch news sequentially to respect rate limit (3 requests/second)
     const newsResults = [];
-    for (const anime of top5) {
+    for (const anime of top7) {
       const news = await getAnimeNews(anime.mal_id);
       newsResults.push(news);
     }
