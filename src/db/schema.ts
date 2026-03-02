@@ -50,7 +50,6 @@ export const sessions = pgTable(
       .references(() => users.id, { onDelete: "cascade" }),
     expires: timestamp("expires", { mode: "date" }).notNull(),
   },
-  (table) => [primaryKey({ columns: [table.sessionToken] })],
 );
 
 export const favoriteAnimes = pgTable(
@@ -68,8 +67,11 @@ export const favoriteAnimes = pgTable(
 );
 
 //relations
-export const favoriteAnimesRaltions = relations(favoriteAnimes, ({ many }) => ({
-  users: many(users),
+export const favoriteAnimesRaltions = relations(favoriteAnimes, ({ one }) => ({
+  user: one(users, {
+    fields: [favoriteAnimes.userId],
+    references: [users.id],
+  }),
 }));
 export const sessionRelation = relations(sessions, ({ one }) => ({
   user: one(users, {

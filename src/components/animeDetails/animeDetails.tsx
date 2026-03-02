@@ -1,12 +1,17 @@
 import Image from "next/image";
 import { Anime } from "@/types/anime";
 import AnimeDescription from "./animeDescription";
+import LikeButton from "./likeButton";
+import { checkIfLiked } from "@/actions/checkIfLiked";
 
 interface AnimeDetailsCardProps {
   anime: Anime;
 }
 
-export default function AnimeDetailsCard({ anime }: AnimeDetailsCardProps) {
+export default async function AnimeDetailsCard({
+  anime,
+}: AnimeDetailsCardProps) {
+  const isLiked = await checkIfLiked(anime.mal_id);
   return (
     <div className="container mx-auto px-4 py-8 md:py-12">
       <div className="grid grid-cols-1 md:grid-cols-[300px_1fr] lg:grid-cols-[350px_1fr] gap-8 lg:gap-12 items-start">
@@ -34,6 +39,7 @@ export default function AnimeDetailsCard({ anime }: AnimeDetailsCardProps) {
           >
             See On MAL
           </a>
+          <LikeButton animeId={anime.mal_id} initialLiked={isLiked} />
         </div>
 
         <div className="flex flex-col gap-6">

@@ -32,7 +32,7 @@ export default function CardSlider({
 }: CardSliderProps) {
   const [animes, setAnimes] = useState(initialAnimes);
   const [selectedFilter, setSelectedFilter] =
-    useState<AnimeCategory>("upcoming");
+    useState<AnimeCategory>("airing");
   const [isLoading, setIsLoading] = useState(initialLoading || false);
 
   // Sync internal state with props when parent updates them
