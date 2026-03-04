@@ -9,9 +9,16 @@ import { useState } from "react";
 interface LikeButtonProps {
   animeId: number;
   initialLiked: boolean;
+  animeImage: string;
+  animeName: string;
 }
 
-export default function LikeButton({ animeId, initialLiked }: LikeButtonProps) {
+export default function LikeButton({
+  animeId,
+  initialLiked,
+  animeImage,
+  animeName,
+}: LikeButtonProps) {
   const [isLiked, setIsLiked] = useState(initialLiked);
   const { data, status } = useSession();
   const router = useRouter();
@@ -24,7 +31,7 @@ export default function LikeButton({ animeId, initialLiked }: LikeButtonProps) {
     setIsLiked((prevState) => !prevState);
 
     try {
-      const result = await toggleLike(animeId);
+      const result = await toggleLike(animeId, animeName, animeImage);
       if (result.error) {
         throw new Error("You re unauthorized");
       }

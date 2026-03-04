@@ -39,7 +39,12 @@ export default async function AnimeDetailsCard({
           >
             See On MAL
           </a>
-          <LikeButton animeId={anime.mal_id} initialLiked={isLiked} />
+          <LikeButton
+            animeId={anime.mal_id}
+            initialLiked={isLiked}
+            animeImage={anime.images.webp.large_image_url}
+            animeName={anime.title}
+          />
         </div>
 
         <div className="flex flex-col gap-6">

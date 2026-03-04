@@ -6,7 +6,11 @@ import { favoriteAnimes } from "@/db/schema";
 import { and, eq } from "drizzle-orm";
 import { getServerSession } from "next-auth";
 
-export const toggleLike = async (animeId: number) => {
+export const toggleLike = async (
+  animeId: number,
+  animeName: string,
+  animeImage: string,
+) => {
   const session = await getServerSession(authOptions);
   if (!session?.user?.id) {
     return { error: "unauthorized" };
@@ -32,6 +36,8 @@ export const toggleLike = async (animeId: number) => {
   } else {
     await db.insert(favoriteAnimes).values({
       userId: session?.user?.id,
+      animeName: animeName,
+      animeImage: animeImage,
       animeId: animeId,
     });
     return { liked: true };

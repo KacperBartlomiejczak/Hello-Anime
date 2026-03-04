@@ -41,16 +41,13 @@ export const accounts = pgTable(
   ],
 );
 
-export const sessions = pgTable(
-  "sessions",
-  {
-    sessionToken: text("sessionToken").primaryKey(),
-    userId: uuid("user_id")
-      .notNull()
-      .references(() => users.id, { onDelete: "cascade" }),
-    expires: timestamp("expires", { mode: "date" }).notNull(),
-  },
-);
+export const sessions = pgTable("sessions", {
+  sessionToken: text("sessionToken").primaryKey(),
+  userId: uuid("user_id")
+    .notNull()
+    .references(() => users.id, { onDelete: "cascade" }),
+  expires: timestamp("expires", { mode: "date" }).notNull(),
+});
 
 export const favoriteAnimes = pgTable(
   "favorite_animes",
@@ -59,6 +56,8 @@ export const favoriteAnimes = pgTable(
       .notNull()
       .references(() => users.id, { onDelete: "cascade" }),
     animeId: integer("anime_id").notNull(),
+    animeName: text("anime_name").notNull(),
+    animeImage: text("anime_image"),
     createdAt: timestamp("created_at").defaultNow(),
   },
   (favoriteAnimes) => [
