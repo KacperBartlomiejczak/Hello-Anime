@@ -5,7 +5,6 @@ import { redirect } from "next/navigation";
 import Link from "next/link";
 import Title from "@/components/ui/title";
 import { getFavouriteAime } from "@/actions/getFavouriteAnime";
-import AnimeTile from "@/components/animeNews/AnimeTile";
 
 export default async function ProfilePage() {
   const session = await getServerSession(authOptions);
@@ -15,7 +14,6 @@ export default async function ProfilePage() {
   }
 
   const result = await getFavouriteAime();
-  console.log(result);
 
   return (
     <div className="w-screen">
@@ -44,14 +42,14 @@ export default async function ProfilePage() {
 
         <div className="container mx-auto flex flex-col gap-4">
           <Title>Favourite Anime</Title>
-          <div className="flex flex-row gap-4">
+          <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {result.map((anime) => (
               <Link
                 key={anime.animeId}
                 href={`/anime/${anime.animeId}`}
                 className="flex flex-col h-70 w-55 items-center group"
               >
-                <div className="relative w-40 h-60 ">
+                <div className="relative w-40 aspect-2/3">
                   <Image
                     src={anime.animeImage || "https://placehold.co/600x400"}
                     alt={`This is poster for anime ${anime.animeName}}`}
