@@ -19,51 +19,14 @@ export interface AnimeNewsItem {
   excerpt: string;
 }
 
-const FAKE_NEWS_RESPONSE: { data: AnimeNewsItem[] } = {
-  data: [
-    {
-      mal_id: 1,
-      url: "https://myanimelist.net/news/1",
-      title: "To jest testowy news nr 1",
-      date: "2023-10-10T12:00:00+00:00",
-      author_username: "Bartek",
-      images: {
-        jpg: {
-          image_url:
-            "https://cdn.myanimelist.net/s/common/uploaded_files/1765556312-11fff2d4eec923893ce8dd25284bea0d.jpeg",
-        },
-      },
-      forum_url: "#",
-      excerpt:
-        "To jest przykładowy wstęp do newsa, który jest bardzo ciekawy...",
-    },
-    {
-      mal_id: 2,
-      url: "https://myanimelist.net/news/2",
-      title: "To jest testowy news nr 2 (starszy)",
-      date: "2023-10-10T12:00:00+00:00",
-      author_username: "Mentor",
-      images: {
-        jpg: {
-          image_url:
-            "https://cdn.myanimelist.net/s/common/uploaded_files/1765556312-11fff2d4eec923893ce8dd25284bea0d.jpeg",
-        },
-      },
-      forum_url: "#",
-      excerpt:
-        "Kolejny niesamowity news ze świata anime, który musisz przeczytać...",
-    },
-  ],
-};
+
 
 export const fetchAnimeNews = async (id: string | number) => {
   const baseUrl = "https://api.jikan.moe/v4/anime";
 
   try {
     const response = await jikanRateLimiter.schedule(() =>
-      fetch(`${baseUrl}/${id}/news`, {
-        next: { revalidate: 3600 },
-      }),
+      fetch(`${baseUrl}/${id}/news`),
     );
     if (response.status === 429) {
       console.warn("⚠️ Limit API osiągnięty! Używam danych testowych.");

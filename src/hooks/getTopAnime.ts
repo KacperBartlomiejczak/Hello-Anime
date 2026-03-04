@@ -6,7 +6,7 @@ import { unstable_cache } from "next/cache";
 export const fetchTopAnime = async (
   filter: AnimeCategory,
   page: number = 1,
-  limit: number = 25,
+  limit: number = 10,
   genreId?: string,
 ) => {
   const url = "https://api.jikan.moe/v4";

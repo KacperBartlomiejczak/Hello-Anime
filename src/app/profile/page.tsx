@@ -14,6 +14,7 @@ export default async function ProfilePage() {
   }
 
   const result = await getFavouriteAime();
+  console.log(session.user.image);
 
   return (
     <div className="w-screen">
@@ -26,9 +27,10 @@ export default async function ProfilePage() {
               src={session.user.image || "/placeholder-avatar.jpg"}
               alt={session.user.name || "User Avatar"}
               fill
-              unoptimized
+              
               className="object-cover"
               priority
+              
             />
           </div>
 
@@ -41,6 +43,7 @@ export default async function ProfilePage() {
         </div>
 
         <div className="container mx-auto flex flex-col gap-4">
+          {result.length > 0 && <>
           <Title>Favourite Anime</Title>
           <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-4">
             {result.map((anime) => (
@@ -62,7 +65,8 @@ export default async function ProfilePage() {
                 </h3>
               </Link>
             ))}
-          </div>
+          </div></>}
+          
         </div>
       </div>
     </div>
