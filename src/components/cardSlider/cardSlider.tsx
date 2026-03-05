@@ -31,8 +31,7 @@ export default function CardSlider({
   hideDropdown,
 }: CardSliderProps) {
   const [animes, setAnimes] = useState(initialAnimes);
-  const [selectedFilter, setSelectedFilter] =
-    useState<AnimeCategory>("airing");
+  const [selectedFilter, setSelectedFilter] = useState<AnimeCategory>("airing");
   const [isLoading, setIsLoading] = useState(initialLoading || false);
 
   // Sync internal state with props when parent updates them
@@ -47,7 +46,7 @@ export default function CardSlider({
   }, [initialLoading]);
 
   const handleFilterChange = async (
-    e: React.ChangeEvent<HTMLSelectElement>
+    e: React.ChangeEvent<HTMLSelectElement>,
   ) => {
     const newFilter = e.target.value as AnimeCategory;
     setSelectedFilter(newFilter);
@@ -77,7 +76,7 @@ export default function CardSlider({
 
   const uniqueAnimes = animes.filter(
     (anime, index, self) =>
-      index === self.findIndex((t) => t.mal_id === anime.mal_id)
+      index === self.findIndex((t) => t.mal_id === anime.mal_id),
   );
 
   return (
@@ -114,32 +113,51 @@ export default function CardSlider({
           }}
         >
           <AnimatePresence mode="wait">
-            {isLoading
-              ? Array.from({ length: 5 }).map((_, index) => (
-                  <SwiperSlide key={`skeleton-${index}`} className="w-auto!">
+            {isLoading ? (
+              Array.from({ length: 5 }).map((_, index) => (
+                <SwiperSlide key={`skeleton-${index}`} className="w-auto!">
+                  <motion.div
+                    initial={{ opacity: 0 }}
+                    animate={{ opacity: 1 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.3 }}
+                  >
+                    <CardPlaceholder />
+                  </motion.div>
+                </SwiperSlide>
+              ))
+            ) : uniqueAnimes.length === 0 ? (
+              <SwiperSlide className="w-full! flex items-center justify-center">
+                <motion.div
+                  initial={{ opacity: 0 }}
+                  animate={{ opacity: 1 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.3 }}
+                  className="w-[90%] md:w-[60%] lg:w-[40%] min-h-[160px] flex flex-col items-center justify-center text-gray-400 text-sm md:text-base border border-secondary/50 rounded-lg bg-secondary/20 p-6 mx-auto text-center"
+                >
+                  <p className="font-semibold text-white/80 mb-2">No result</p>
+                  <p>
+                    It is possible that the Jikan API is currently overloaded or
+                    that no anime is being broadcast at this time. Please try
+                    again in a few moments.
+                  </p>
+                </motion.div>
+              </SwiperSlide>
+            ) : (
+              uniqueAnimes.map((anime, index) => {
+                return (
+                  <SwiperSlide key={anime.mal_id} className="w-auto!">
                     <motion.div
-                      initial={{ opacity: 0 }}
-                      animate={{ opacity: 1 }}
-                      exit={{ opacity: 0 }}
-                      transition={{ duration: 0.3 }}
+                      initial={{ opacity: 0, x: 20 }}
+                      animate={{ opacity: 1, x: 0 }}
+                      transition={{ duration: 0.4, delay: index * 0.05 }}
                     >
-                      <CardPlaceholder />
+                      <Card {...anime} />
                     </motion.div>
                   </SwiperSlide>
-                ))
-              : uniqueAnimes.map((anime, index) => {
-                  return (
-                    <SwiperSlide key={anime.mal_id} className="w-auto!">
-                      <motion.div
-                        initial={{ opacity: 0, x: 20 }}
-                        animate={{ opacity: 1, x: 0 }}
-                        transition={{ duration: 0.4, delay: index * 0.05 }}
-                      >
-                        <Card {...anime} />
-                      </motion.div>
-                    </SwiperSlide>
-                  );
-                })}
+                );
+              })
+            )}
           </AnimatePresence>
         </Swiper>
       </div>

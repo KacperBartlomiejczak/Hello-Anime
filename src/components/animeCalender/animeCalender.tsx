@@ -20,7 +20,7 @@ export default function AnimeCalender({ data }: { data: Anime[] }) {
 
   const handleFetchAiringAnime = async () => {
     setLoading(true);
-    // setAnimeAiring([]); // Optional: keep previous data while loading to prevent flash
+    setAnimeAiring([]);
     try {
       const data = await getAnimeAiringAction(day);
       setAnimeAiring(data);
@@ -30,14 +30,16 @@ export default function AnimeCalender({ data }: { data: Anime[] }) {
       setLoading(false);
     }
   };
+  console.log(day);
+  console.log(animeAiring);
 
   useEffect(() => {
-    if (isInitialMount.current === true) {
+    if (isInitialMount.current) {
       isInitialMount.current = false;
       return;
     }
     handleFetchAiringAnime();
-  }, [day]); //eslint-disable-line
+  }, [day]); // eslint-disable-line
 
   return (
     <CardSlider

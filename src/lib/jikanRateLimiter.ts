@@ -34,7 +34,7 @@ export class RateLimiter {
       const task = this.queue.shift();
       if (task) {
         await task();
-        await new Promise((resolve) => setTimeout(resolve, 400));
+        await new Promise((resolve) => setTimeout(resolve, 300));
       }
     }
     this.processing = false;
