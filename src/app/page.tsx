@@ -6,7 +6,7 @@ import HeroServer from "@/components/hero/heroServer";
 import AnimeCalender from "@/components/animeCalender/animeCalender";
 import Footer from "@/components/footer/footer";
 import HomeLoading from "@/components/home/HomeLoading";
-import NewsListSkeleton from "@/components/animeNews/newsListSkeleton";
+
 
 import { Suspense } from "react";
 import HeroSkeleton from "@/components/hero/heroSkeleton";
@@ -21,9 +21,9 @@ async function HomeContent() {
         </header>
       </Suspense>
       <CardSliderServer />
-      <Suspense fallback={<NewsListSkeleton />}>
+      
         <AnimeNews />
-      </Suspense>
+      
       <AnimeCalenderServer />
       <Footer />
     </>

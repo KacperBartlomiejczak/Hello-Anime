@@ -6,11 +6,6 @@ export const dataLinks = [
   },
 
   {
-    id: 3,
-    title: "News",
-    href: "/news",
-  },
-  {
     id: 4,
     title: "Contact us",
     href: "/contact",

@@ -1,17 +1,22 @@
-import Title from "../ui/title";
+import { Swiper, SwiperSlide } from "swiper/react";
+import "swiper/css";
+import "swiper/css/free-mode";
 import Section from "../ui/section";
-import NewsList from "./newsList";
-import { getMixedAnimeNews } from "@/hooks/getAnimeNews";
+import Title from "../ui/title";
 import { getTopAnime } from "@/hooks/getTopAnime";
-
+import AnimeNewsSlider from "./animeNewsSlider";
+import { getAnimeNews } from "@/hooks/getAnimeNews";
 export default async function AnimeNews() {
-  const data = await getTopAnime("upcoming");
-  const news = await getMixedAnimeNews(data.data);
-  return (
-    <Section className="bg-secondary-background max-h-dvh lg:max-h-[110dvh] xl:max-h-[80dvh]">
-      <Title>Anime News</Title>
+  const { data } = await getTopAnime("airing", 1, 10);
 
-      <NewsList news={news} />
+  const result = await getAnimeNews(data[0].mal_id);
+
+  return (
+    <Section>
+      <Title>Anime News</Title>
+      <div className="w-full">
+        <AnimeNewsSlider data={data} news={result} />
+      </div>
     </Section>
   );
 }

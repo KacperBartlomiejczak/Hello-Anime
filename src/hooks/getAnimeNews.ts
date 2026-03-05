@@ -1,86 +1,30 @@
 import { jikanRateLimiter } from "@/lib/jikanRateLimiter";
-import { Anime } from "@/types/anime";
-import { News } from "@/types/news";
 
-import { unstable_cache } from "next/cache";
-
-export interface AnimeNewsItem {
-  mal_id: number;
-  url: string;
-  title: string;
-  date: string;
-  author_username: string;
-  images: {
-    jpg: {
-      image_url: string;
-    };
-  };
-  forum_url: string;
-  excerpt: string;
-}
-
-
-
-export const fetchAnimeNews = async (id: string | number) => {
-  const baseUrl = "https://api.jikan.moe/v4/anime";
-
+export async function getAnimeNews(animeId: number) {
+  const baseUrl = "https://api.jikan.moe/v4";
   try {
     const response = await jikanRateLimiter.schedule(() =>
-      fetch(`${baseUrl}/${id}/news`),
+      fetch(`${baseUrl}/anime/${animeId}/news`, {
+        next: { revalidate: 3600 },
+      }),
     );
-    if (response.status === 429) {
-      console.warn("⚠️ Limit API osiągnięty! Używam danych testowych.");
-      return { data: [] };
+    if (response.status === 504) {
+      return [];
     }
-
     if (!response.ok) {
       throw new Error(
-        `Error just happend and couldnt get anime news ${response.status}`,
+        `Failed to fetch anime news ${response.status} ${response.statusText}`,
       );
     }
-
-    const data = await response.json();
-
-    return data;
-  } catch (err) {
-    console.log("Couldnt get anime news", err);
-    return { data: [] };
-  }
-};
-
-export const getAnimeNews = unstable_cache(
-  async (id: string | number) => fetchAnimeNews(id),
-  ["anime-news-cache-token"],
-  { revalidate: 3600, tags: ["anime-news"] },
-);
-
-export async function getMixedAnimeNews(data: Anime[]) {
-  try {
-    const topAnime = data;
-
-    if (!topAnime || !topAnime.length) return [];
-
-    const top7 = topAnime.slice(0, 7);
-
-    // Fetch news sequentially to respect rate limit (3 requests/second)
-    const newsResults = [];
-    for (const anime of top7) {
-      const news = await getAnimeNews(anime.mal_id);
-      newsResults.push(news);
+    if (response.status === 404) {
+      return [];
     }
 
-    const allNews = newsResults.flatMap((news) =>
-      news && news.data ? news.data : [],
-    );
+    const { data } = await response.json();
 
-    const sortedNews = allNews.sort(
-      (a: News, b: News) =>
-        new Date(b.date).getTime() - new Date(a.date).getTime(),
-    );
-
-    return sortedNews;
+    return data.slice(0, 10);
   } catch (err) {
-    console.error("Error with aggragate news", err);
+    console.error("There was a problem connecting with API ", err);
     return [];
   }
 }
