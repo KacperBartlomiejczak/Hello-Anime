@@ -82,6 +82,9 @@ export default function AnimeNewsSlider({
                       fill
                       alt={anime.title}
                       className="rounded-lg object-cover group-hover:scale-102 transition-transform"
+                      sizes="240px"
+                      loading="lazy"
+                      blurDataURL="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAAEAAAABCAYAAAAfFcSJAAAADUlEQVR42mN88P/BfwAJhAPk7trinQAAAABJRU5ErkJggg=="
                     />
                     <div className="absolute w-full h-full rounded-lg bg-black/30 group-hover:scale-102 transition-transform"></div>
                   </div>
