@@ -11,7 +11,7 @@ export default async function AnimeNews() {
   const result = await getAnimeNews(data[0].mal_id);
 
   return (
-    <Section>
+    <Section id="anime-news">
       <Title>Anime News</Title>
       <div className="w-full">
         <AnimeNewsSlider data={data} news={result} />

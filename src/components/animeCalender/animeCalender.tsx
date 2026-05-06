@@ -6,6 +6,7 @@ import { Anime } from "@/types/anime";
 import AnimeCalenderButtons from "./animeCalenderButtons";
 import CardSlider from "../cardSlider/cardSlider";
 import { getAnimeAiringAction } from "@/actions/getAnimeAiringAction";
+import Section from "@/components/ui/section";
 
 export default function AnimeCalender({ data }: { data: Anime[] }) {
   const [day, setDay] = useState<Day>("monday");
@@ -42,6 +43,7 @@ export default function AnimeCalender({ data }: { data: Anime[] }) {
   }, [day]); // eslint-disable-line
 
   return (
+      <Section id={"airing-anime"}>
     <CardSlider
       title="Anime Scheduled"
       animes={animeAiring}
@@ -56,5 +58,6 @@ export default function AnimeCalender({ data }: { data: Anime[] }) {
         />
       </div>
     </CardSlider>
+      </Section>
   );
 }
